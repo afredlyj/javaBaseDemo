@@ -1,10 +1,7 @@
 package afred.demo.httpclient.async;
 
 import org.apache.commons.io.IOUtils;
-import org.apache.http.HttpException;
-import org.apache.http.HttpResponse;
-import org.apache.http.RequestLine;
-import org.apache.http.StatusLine;
+import org.apache.http.*;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.concurrent.FutureCallback;
 import org.apache.http.impl.nio.client.CloseableHttpAsyncClient;
@@ -41,8 +38,8 @@ public class QuickStart {
         String url = "http://192.168.1.104:8080?requestId=123";
 
         try {
-            simpleRequest(client, url);
-//            callbackRequest(client, url);
+//            simpleRequest(client, url);
+            callbackRequest(client, url);
 //            streamRequest(client, url);
         } catch (Exception e) {
             e.printStackTrace();
@@ -65,6 +62,13 @@ public class QuickStart {
         logger.info("simple request begin ... ");
         Future<HttpResponse> future = client.execute(get, null);
         HttpResponse response = future.get();
+        byte[] arr = getResponse(response);
+        if (arr == null) {
+            logger.warn("http server no response");
+        } else {
+            String data = new String(arr);
+            logger.info("http server response : {}", data);
+        }
         RequestLine requestLine = get.getRequestLine();
         logger.info("request line : {}", requestLine);
 
@@ -79,7 +83,12 @@ public class QuickStart {
 
         logger.info("callback request begin ... ");
         final HttpGet get = new HttpGet(url);
-        get.setHeader("Connection", "close");
+
+        Header[] headers = get.getAllHeaders();
+        for (Header header : headers) {
+            logger.info("request header : {}, {}", header.getName(), header.getValue());
+        }
+
         client.execute(get, new FutureCallback<HttpResponse>() {
             @Override
             public void completed(HttpResponse result) {
@@ -92,7 +101,6 @@ public class QuickStart {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
             }
 
             @Override
@@ -167,6 +175,11 @@ public class QuickStart {
     }
 
     private static byte[] getResponse(HttpResponse response) throws Exception {
+
+        Header[] headers = response.getAllHeaders();
+        for (Header header : headers) {
+            logger.info("response header : {}, {}", header.getName(), header.getValue());
+        }
 
         InputStream is = null;
 

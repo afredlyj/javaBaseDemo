@@ -5,8 +5,11 @@ import io.netty.buffer.Unpooled;
 import io.netty.channel.*;
 import io.netty.handler.codec.http.*;
 import io.netty.util.CharsetUtil;
+import io.netty.util.internal.StringUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.Map;
 
 /**
  * Created by winnie on 2014-11-09 .
@@ -24,7 +27,7 @@ public class HttpServerHandler extends SimpleChannelInboundHandler<Object> {
         HttpHeaders headers = request.headers();
         for (String name : headers.names()) {
             String value = headers.get(name);
-            logger.debug("header : {}, {}", name, value);
+            logger.debug("request header : {}, {}", name, value);
         }
 
         QueryStringDecoder queryString = new QueryStringDecoder(request.getUri());
@@ -52,8 +55,24 @@ public class HttpServerHandler extends SimpleChannelInboundHandler<Object> {
 
         response.headers().set("Content-type", "text/plain;charset=UTF-8");
 
-        HttpHeaders.setContentLength(response, response.content().readableBytes());
+        int len = response.content().readableBytes();
+        logger.info("response content length : {}", len);
+        HttpHeaders.setContentLength(response, len);
+
+        logger.info("{}", response.getProtocolVersion().isKeepAliveDefault());
         HttpHeaders.setKeepAlive(response, keepAlive);
+
+//        HttpHeaders responseHeaders = response.headers();
+//        for (String name : responseHeaders.names()) {
+//            String value = headers.get(name);
+//            logger.debug("response header : {}, {}", name, value);
+//        }
+
+//        for (Map.Entry<String, String> e: responseHeaders) {
+//            logger.debug("header : {}, {}", e.getKey(), e.getValue());
+//        }
+
+        logger.info("response : {}", response);
 
         if (!keepAlive) {
             ctx.write(response).addListener(ChannelFutureListener.CLOSE);
