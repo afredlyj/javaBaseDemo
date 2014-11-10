@@ -78,13 +78,16 @@ public class QuickStart {
         logger.info("simple request finish ...");
     }
 
-    private static void callbackRequest(CloseableHttpAsyncClient client, String url) throws Exception {
+    public static void callbackRequest(CloseableHttpAsyncClient client, String url) throws Exception {
         final CountDownLatch latch = new CountDownLatch(1);
 
         logger.info("callback request begin ... ");
         final HttpGet get = new HttpGet(url);
+        // change protocol version to http1.0 if need
+//        get.setProtocolVersion(HttpVersion.HTTP_1_0);
 
         Header[] headers = get.getAllHeaders();
+
         for (Header header : headers) {
             logger.info("request header : {}, {}", header.getName(), header.getValue());
         }

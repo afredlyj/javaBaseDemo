@@ -52,6 +52,7 @@ public class HttpServerHandler extends SimpleChannelInboundHandler<Object> {
         FullHttpResponse response = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.OK, Unpooled.copiedBuffer("hello world", CharsetUtil.UTF_8));
 
         logger.debug("keep alive : {}",keepAlive);
+        logger.debug("protocol version : {}",request.getProtocolVersion());
 
         response.headers().set("Content-type", "text/plain;charset=UTF-8");
 
