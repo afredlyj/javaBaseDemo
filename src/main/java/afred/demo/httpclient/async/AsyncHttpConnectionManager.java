@@ -46,8 +46,8 @@ public class AsyncHttpConnectionManager {
 
         IOReactorConfig ioReactorConfig = IOReactorConfig.custom()
                 .setIoThreadCount(Runtime.getRuntime().availableProcessors())
-                .setConnectTimeout(30000)
-                .setSoTimeout(30000)
+                .setConnectTimeout(1)
+                .setSoTimeout(3000)
                 .build();
 
         // Create a custom I/O reactort

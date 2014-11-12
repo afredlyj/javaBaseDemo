@@ -10,6 +10,8 @@ import io.netty.handler.codec.http.HttpResponseEncoder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.concurrent.TimeUnit;
+
 /**
  * Created by winnie on 2014-11-09 .
  */
@@ -21,6 +23,12 @@ public class HttpServerInitializer extends ChannelInitializer<NioSocketChannel> 
     protected void initChannel(NioSocketChannel ch) throws Exception {
 
         logger.debug("init channel");
+
+        try {
+            TimeUnit.SECONDS.sleep(5);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         ChannelPipeline pipeline = ch.pipeline();
         pipeline.addLast("decoder", new HttpRequestDecoder());

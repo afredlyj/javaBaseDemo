@@ -9,19 +9,24 @@ import org.apache.http.impl.nio.client.HttpAsyncClients;
 public class RequestWithPool {
 
     public static void main(String[] args) {
-        String url = "http://192.168.1.104:8080?requestId=123";
-
+//        String url = "http://192.168.1.104:8080?requestId=123";
+        String url = "https://insidepay.nearme.com.cn/insidepay/PayOrder";
         try {
-//            getResponseByGetWithPool(url);
-            getResponseByGetWithoutPool(url);
+            getSimpleResponse(url);
+//            getResponseByGetWithoutPool(url);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
+    private static void getSimpleResponse(final  String url) throws Exception {
+        final CloseableHttpAsyncClient httpClient = AsyncHttpConnectionManager.getHttpClient();
+        QuickStart.simpleRequest(httpClient, url);
+    }
+
     private static void getResponseByGetWithPool(final String url) throws Exception {
         final CloseableHttpAsyncClient httpClient = AsyncHttpConnectionManager.getHttpClient();
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 1; i++) {
             new Thread(new Runnable() {
                 @Override
                 public void run() {

@@ -19,6 +19,7 @@ import java.io.InputStream;
 import java.nio.CharBuffer;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Afred on 14-11-9.
@@ -35,11 +36,12 @@ public class QuickStart {
 
         client.start();
 
-        String url = "http://192.168.1.104:8080?requestId=123";
+//        String url = "http://192.168.1.104:8080?requestId=123";
+        String url = "https://insidepay.nearme.com.cn/insidepay/PayOrder";
 
         try {
-//            simpleRequest(client, url);
-            callbackRequest(client, url);
+            simpleRequest(client, url);
+//            callbackRequest(client, url);
 //            streamRequest(client, url);
         } catch (Exception e) {
             e.printStackTrace();
@@ -54,14 +56,28 @@ public class QuickStart {
         logger.info("quick start end ... ");
     }
 
-    private static void simpleRequest(CloseableHttpAsyncClient client, String url) throws Exception {
+    public static void simpleRequest(CloseableHttpAsyncClient client, String url) throws Exception {
 
         final HttpGet get = new HttpGet(url);
 //        get.set
 
         logger.info("simple request begin ... ");
         Future<HttpResponse> future = client.execute(get, null);
-        HttpResponse response = future.get();
+
+//        try {
+//            TimeUnit.SECONDS.sleep(10);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+
+        HttpResponse response = null;
+        try {
+            response = future.get();
+        } catch (Exception e) {
+            e.fillInStackTrace();
+            logger.error("exception", e);
+        }
+
         byte[] arr = getResponse(response);
         if (arr == null) {
             logger.warn("http server no response");
@@ -72,8 +88,11 @@ public class QuickStart {
         RequestLine requestLine = get.getRequestLine();
         logger.info("request line : {}", requestLine);
 
-        StatusLine responseLine = response.getStatusLine();
-        logger.info("response line  : {}", responseLine);
+        if (response != null) {
+            StatusLine responseLine = response.getStatusLine();
+            logger.info("response line  : {}", responseLine);
+        }
+
 
         logger.info("simple request finish ...");
     }
@@ -92,7 +111,7 @@ public class QuickStart {
             logger.info("request header : {}, {}", header.getName(), header.getValue());
         }
 
-        client.execute(get, new FutureCallback<HttpResponse>() {
+        Future<HttpResponse> future =  client.execute(get, new FutureCallback<HttpResponse>() {
             @Override
             public void completed(HttpResponse result) {
                 latch.countDown();
@@ -178,6 +197,10 @@ public class QuickStart {
     }
 
     private static byte[] getResponse(HttpResponse response) throws Exception {
+
+        if (null == response) {
+            return null;
+        }
 
         Header[] headers = response.getAllHeaders();
         for (Header header : headers) {
