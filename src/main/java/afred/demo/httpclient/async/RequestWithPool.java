@@ -9,8 +9,7 @@ import org.apache.http.impl.nio.client.HttpAsyncClients;
 public class RequestWithPool {
 
     public static void main(String[] args) {
-//        String url = "http://192.168.1.104:8080?requestId=123";
-        String url = "https://insidepay.nearme.com.cn/insidepay/PayOrder";
+        String url = "http://192.168.1.104:8080?requestId=123";
         try {
             getSimpleResponse(url);
 //            getResponseByGetWithoutPool(url);

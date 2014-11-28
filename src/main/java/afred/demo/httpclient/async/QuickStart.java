@@ -19,7 +19,6 @@ import java.io.InputStream;
 import java.nio.CharBuffer;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Future;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Afred on 14-11-9.
@@ -36,8 +35,7 @@ public class QuickStart {
 
         client.start();
 
-//        String url = "http://192.168.1.104:8080?requestId=123";
-        String url = "https://insidepay.nearme.com.cn/insidepay/PayOrder";
+        String url = "http://192.168.1.104:8080?requestId=123";
 
         try {
             simpleRequest(client, url);
@@ -59,16 +57,11 @@ public class QuickStart {
     public static void simpleRequest(CloseableHttpAsyncClient client, String url) throws Exception {
 
         final HttpGet get = new HttpGet(url);
-//        get.set
+        get.setProtocolVersion(HttpVersion.HTTP_1_0);
+        get.setHeader(HttpHeaders.CONNECTION, "keep-alive");
 
         logger.info("simple request begin ... ");
         Future<HttpResponse> future = client.execute(get, null);
-
-//        try {
-//            TimeUnit.SECONDS.sleep(10);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
 
         HttpResponse response = null;
         try {
@@ -196,7 +189,7 @@ public class QuickStart {
         logger.info("stream request finished ... ");
     }
 
-    private static byte[] getResponse(HttpResponse response) throws Exception {
+    public static byte[] getResponse(HttpResponse response) throws Exception {
 
         if (null == response) {
             return null;
@@ -207,8 +200,12 @@ public class QuickStart {
             logger.info("response header : {}, {}", header.getName(), header.getValue());
         }
 
-        InputStream is = null;
+        StatusLine statusLine = response.getStatusLine();
+        if (statusLine != null) {
+            logger.info("http response status : {}", statusLine.getStatusCode());
+        }
 
+        InputStream is = null;
         try {
             is = response.getEntity().getContent();
             return IOUtils.toByteArray(is);
