@@ -21,7 +21,7 @@ public class CheckSum {
 
     private Logger logger;
 
-    private String url = "http://192.168.1.104:8080?requestid=123456";
+    private String url = "http://127.0.0.1:8080?requestid=123456";
 
     private CloseableHttpAsyncClient client;
 

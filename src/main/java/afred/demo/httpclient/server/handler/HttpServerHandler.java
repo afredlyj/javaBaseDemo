@@ -82,6 +82,19 @@ public class HttpServerHandler extends SimpleChannelInboundHandler<Object> {
     }
 
     @Override
+    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+
+        logger.error("http server handler exception", cause);
+
+        HttpResponseStatus status = HttpResponseStatus.INTERNAL_SERVER_ERROR;
+        FullHttpResponse response = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, status,
+                Unpooled.copiedBuffer("Failure : " + status.toString(), CharsetUtil.UTF_8));
+
+        ctx.writeAndFlush(response).addListener(ChannelFutureListener.CLOSE);
+
+    }
+
+    @Override
     public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
         logger.info("flush");
         ctx.flush();

@@ -16,7 +16,6 @@ public class RequestHeader implements Serializable {
 
     private String clientIp;
 
-
     public String getUserAgent() {
         return userAgent;
     }

@@ -47,12 +47,12 @@ public class CheckSumHandler extends SimpleChannelInboundHandler<FullHttpRequest
 
         String localMd5 = DigestUtils.md5Hex(userAgent);
 
-//        if (!localMd5.equals(checkSum)) {
+        if (!localMd5.equals(checkSum)) {
             logger.info("check sum fail : {}, {}", localMd5, checkSum);
             ctx.writeAndFlush(response);
-//        } else {
-//            ctx.fireChannelRead(msg);
-//        }
+        } else {
+            ctx.fireChannelRead(msg);
+        }
     }
 
     public static void main(String[] args) {
