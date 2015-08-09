@@ -3,6 +3,7 @@ package afred.demo.httpclient.async;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.*;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
 import org.apache.http.concurrent.FutureCallback;
 import org.apache.http.impl.nio.client.CloseableHttpAsyncClient;
 import org.apache.http.impl.nio.client.HttpAsyncClients;
@@ -36,8 +37,7 @@ public class QuickStart {
 
         client.start();
 
-//        String url = "http://192.168.1.104:8080?requestId=123";
-        String url = "https://insidepay.nearme.com.cn/insidepay/PayOrder";
+        String url = "http://192.168.1.104:8080?requestId=123";
 
         try {
             simpleRequest(client, url);
@@ -59,6 +59,8 @@ public class QuickStart {
     public static void simpleRequest(CloseableHttpAsyncClient client, String url) throws Exception {
 
         final HttpGet get = new HttpGet(url);
+
+        final HttpPost post = new HttpPost();
 //        get.set
 
         logger.info("simple request begin ... ");

@@ -47,6 +47,26 @@
         <version>4.0.17.Final</version>
     </dependency>
 
+    <dependency>
+        <groupId>obase</groupId>
+        <artifactId>obase</artifactId>
+        <version>1.1</version>
+        <scope>system</scope>
+        <systemPath>d:/obasetools-1.0.4.jar</systemPath>
+    </dependency>
+
+    <dependency>
+        <groupId>net.sf.dozer</groupId>
+        <artifactId>dozer</artifactId>
+        <version>5.2.1</version>
+    </dependency>
+
+    <!--<dependency>-->
+        <!--<groupId>com.dianping.cat</groupId>-->
+        <!--<artifactId>cat-client</artifactId>-->
+        <!--<version>1.1.8</version>-->
+    <!--</dependency>-->
+
 </dependencies>
 
 
