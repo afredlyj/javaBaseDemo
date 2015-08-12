@@ -1,6 +1,6 @@
 package afred.demo.httpclient.server.init;
 
-import afred.demo.httpclient.server.handler.CheckSumHandler2;
+import afred.demo.httpclient.server.handler.CheckSumHandler1;
 import afred.demo.httpclient.server.handler.HttpServerHandler;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
@@ -48,7 +48,7 @@ public class HttpServerInitializer extends ChannelInitializer<NioSocketChannel> 
          * before the HttpObjectAggregator in the ChannelPipeline.
          */
         pipeline.addLast("aggregator", new HttpObjectAggregator(1048576));
-        pipeline.addLast("checkSum", new CheckSumHandler2());
+        pipeline.addLast("checkSum", new CheckSumHandler1());
         if (bzGroup != null) {
             pipeline.addLast(bzGroup, "serverHandler", new HttpServerHandler());
         } else {

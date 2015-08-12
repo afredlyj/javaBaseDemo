@@ -7,7 +7,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.nio.client.CloseableHttpAsyncClient;
 import org.apache.http.impl.nio.client.HttpAsyncClients;
 import org.junit.Assert;
-import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,15 +19,15 @@ import java.util.concurrent.Future;
  */
 public class CheckSum {
 
-    private Logger logger;
+    private static Logger logger;
 
     private String url = "http://127.0.0.1:8080?requestid=123456";
 
-    private CloseableHttpAsyncClient client;
+    private static CloseableHttpAsyncClient client;
 
-    @Before
-    public void init() {
-        logger = LoggerFactory.getLogger(this.getClass());
+    @BeforeClass
+    public static void init() {
+        logger = LoggerFactory.getLogger("CheckSum");
 
         client = HttpAsyncClients.createDefault();
         client.start();
