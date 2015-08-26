@@ -57,6 +57,20 @@ public class CheckSum {
         }
     }
 
+    @Test
+    public void mutilTimesSend() {
+        for (int i = 0; i < 1000; i++) {
+            String ua = "sendOk";
+            String md5 = DigestUtils.md5Hex(ua);
+
+            try {
+                request(ua, md5);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     private void request(String ua, String md5) throws Exception {
         final HttpGet get = new HttpGet(url);
         get.addHeader("ua", ua);

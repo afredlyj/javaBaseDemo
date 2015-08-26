@@ -35,7 +35,7 @@ public class QuickStart {
 
         client.start();
 
-        String url = "http://192.168.1.104:8080?requestId=123";
+        String url = "http://127.0.0.1:8080?requestId=123";
 
         try {
             simpleRequest(client, url);
