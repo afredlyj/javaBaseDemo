@@ -6,60 +6,131 @@ import org.slf4j.LoggerFactory;
 import java.util.concurrent.*;
 
 /**
- * Created by Afred on 15/5/10.
+ * Created with demo. 
+ * User: liyuanjun(80059138) 
+ * Date: 2015-05-07 
+ * Time: 13:52
  */
 public class Test {
 
-    private static final Logger logger = LoggerFactory.getLogger(Test.class);
+    private static Logger logger = LoggerFactory.getLogger(Test.class);
 
     public static void main(String[] args) {
+        scheduleWithFixedDelay();
+    }
 
-        ThreadPoolExecutor executor =  new ThreadPoolExecutor(10, 20, 60, TimeUnit.SECONDS, new ArrayBlockingQueue<Runnable>(10)) {
+    private static void singleThread() {
 
-            @Override
-            protected void beforeExecute(Thread t, Runnable r) {
+        ExecutorService service = Executors.newSingleThreadExecutor();
 
-                logger.debug("thread : {}, task : {}", t.getName(), r);
-                super.beforeExecute(t, r);
-            }
+    }
 
-            @Override
-            protected void afterExecute(Runnable r, Throwable t) {
-                super.afterExecute(r, t);
+    private static void mutilThreadWithOnceExecute() {
 
-                logger.debug("task : {}", r);
-//                logger.error("throwable : {}", t);
+        logger.info("start ... ");
+        ExecutorService service = Executors.newFixedThreadPool(5);
+
+        int count = 10;
+        final CountDownLatch latch = new CountDownLatch(count);
+        Runnable task =  new Runnable() {
+            @Override public void run() {
+
+                try {
+                    logger.info("enter ...");
+                    TimeUnit.SECONDS.sleep(5);
+                    logger.info("out ... ");
+                    latch.countDown();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         };
 
-        executor.execute(new Runnable() {
-            @Override
-            public void run() {
-                int i = 1 / 0;
-            }
-        });
-
-//        Future f = executor.submit(new Runnable() {
-//            @Override
-//            public void run() {
-//                int i = 1 / 0;
-//            }
-//        });
-
-//        try {
-//            logger.debug("result : {}", f.get());
-//        } catch (InterruptedException e) {
-////            e.printStackTrace();
-//        } catch (ExecutionException e) {
-////            e.printStackTrace();
-//        }
-
-        try {
-            TimeUnit.SECONDS.sleep(5);
-            executor.shutdown();
-        } catch (Exception e) {
-//            e.printStackTrace();
+        for (int i = 0; i < count; i++) {
+            service.execute(task);
         }
 
+        try {
+            latch.await();
+            service.shutdown();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        logger.info("finish ... ");
     }
+
+    private static void scheduleAtFixedRate() {
+
+        logger.info("start ... ");
+        ScheduledExecutorService service = Executors.newScheduledThreadPool(5);
+
+        int count = 5;
+        final CountDownLatch latch = new CountDownLatch(count);
+        Runnable task =  new Runnable() {
+            @Override public void run() {
+
+                try {
+                    logger.info("enter ...");
+                    TimeUnit.SECONDS.sleep(5);
+                    logger.info("out ... ");
+                    latch.countDown();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+
+        service.scheduleAtFixedRate(task, 0, 1, TimeUnit.SECONDS);
+
+        try {
+            latch.await();
+            service.shutdown();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        logger.info("finish ... ");
+    }
+
+
+    private static void scheduleWithFixedDelay() {
+
+        logger.info("start ... ");
+        ScheduledExecutorService service = Executors.newScheduledThreadPool(5);
+
+        int count = 5;
+        final CountDownLatch latch = new CountDownLatch(count);
+        Runnable task =  new Runnable() {
+            @Override public void run() {
+
+                try {
+                    logger.info("enter ...");
+                    TimeUnit.SECONDS.sleep(5);
+                    logger.info("out ... ");
+                    latch.countDown();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+
+        service.scheduleWithFixedDelay(task, 0, 1, TimeUnit.SECONDS);
+
+        try {
+            latch.await();
+            service.shutdown();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        logger.info("finish ... ");
+    }
+
+    private static void schedule() {
+
+        ExecutorService service = Executors.newFixedThreadPool(10);
+
+    }
+
 }
