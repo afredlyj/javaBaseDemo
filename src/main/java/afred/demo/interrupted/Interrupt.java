@@ -1,6 +1,7 @@
 package afred.demo.interrupted;
 
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Afred on 15/7/8.
@@ -31,6 +32,7 @@ public class Interrupt {
 
         thread.start();
         /**
+         *
          * 将thread 线程的中断标识设为true00u
          */
         thread.interrupt();
