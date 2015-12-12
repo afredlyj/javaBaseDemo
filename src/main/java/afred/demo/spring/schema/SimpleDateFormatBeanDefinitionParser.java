@@ -1,4 +1,4 @@
-package afred.demo.spring_schema;
+package afred.demo.spring.schema;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

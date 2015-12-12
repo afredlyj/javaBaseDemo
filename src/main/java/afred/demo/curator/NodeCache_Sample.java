@@ -2,10 +2,14 @@ package afred.demo.curator;
 
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;
+import org.apache.curator.framework.recipes.cache.NodeCache;
+import org.apache.curator.framework.recipes.cache.NodeCacheListener;
 import org.apache.curator.retry.ExponentialBackoffRetry;
 import org.apache.zookeeper.CreateMode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by winnie on 15/10/11.
@@ -22,13 +26,30 @@ public class NodeCache_Sample {
 
     public static void main(String[] args) throws Exception {
 
+        String path = "/zk-book/node-cache";
+
         client.start();
 
         client.create().creatingParentsIfNeeded().withMode(CreateMode.EPHEMERAL)
-                .forPath("/zk-book/node-cache", "hello".getBytes());
+                .forPath(path, "hello".getBytes());
 
-//        NodeCach
+        final NodeCache cache = new NodeCache(client, path, false);
+        cache.start(true);
 
+        cache.getListenable().addListener(new NodeCacheListener() {
+            public void nodeChanged() throws Exception {
+
+                logger.debug("node data update, new data : {}", new String(cache.getCurrentData().getData()));
+            }
+        });
+
+        client.setData().forPath(path, "world".getBytes());
+
+        TimeUnit.SECONDS.sleep(2);
+
+//        client.delete().deletingChildrenIfNeeded().forPath(path);
+
+        TimeUnit.SECONDS.sleep(100);
     }
 
 }

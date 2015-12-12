@@ -11,6 +11,24 @@
 
        default-autowire="byName">
 
-    <dateformat:datef id="defaltDateFormat" pattern="yyyy-MM-dd HH:mm" lenient="true"/>
+    <!--<dateformat:datef id="defaltDateFormat" pattern="yyyy-MM-dd HH:mm" lenient="true"/>-->
+
+    <!--<bean id="beanPostProcessor" class="afred.demo.spring.bean.AfredBeanPostProcessor" />-->
+
+    <!--<bean id="beanFactoryPostProcessor" class="afred.demo.spring.bean.AfredBeanFactoryPostProcessor" />-->
+
+    <!--<bean id="instantiationAwareBeanPostProcessor" class="afred.demo.spring.bean.AfredInstantiationAwareBeanPostProcessor" />-->
+
+    <!--<bean id="people" class="afred.demo.spring.bean.People" init-method="init" destroy-method="destroy">-->
+
+    <!--</bean>-->
+
+    <!--<bean id="iService" class="afred.demo.spring.bean.IService" abstract="true"/>-->
+
+    <bean id="factoryBean" class="afred.demo.spring.factorybean.AfredFactoryBean" />
+
+    <bean id="peopleManager" class="afred.demo.spring.factorybean.PeopleManager">
+        <property name="people" ref="factoryBean" />
+    </bean>
 
     </beans>

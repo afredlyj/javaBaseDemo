@@ -1,4 +1,4 @@
-package afred.demo.spring_schema;
+package afred.demo.spring.schema;
 
 /**
  * Created by winnie on 15/12/5.
