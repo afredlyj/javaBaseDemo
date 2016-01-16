@@ -2,14 +2,13 @@ package afred.demo.httpclient.server.handler;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
-import io.netty.channel.*;
+import io.netty.channel.ChannelFutureListener;
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.handler.codec.http.*;
 import io.netty.util.CharsetUtil;
-import io.netty.util.internal.StringUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.Map;
 
 /**
  * Created by winnie on 2014-11-09 .
@@ -80,6 +79,19 @@ public class HttpServerHandler extends SimpleChannelInboundHandler<Object> {
         } else {
             ctx.write(response);
         }
+    }
+
+    @Override
+    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+
+        logger.error("http server handler exception", cause);
+
+        HttpResponseStatus status = HttpResponseStatus.INTERNAL_SERVER_ERROR;
+        FullHttpResponse response = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, status,
+                Unpooled.copiedBuffer("Failure : " + status.toString(), CharsetUtil.UTF_8));
+
+        ctx.writeAndFlush(response).addListener(ChannelFutureListener.CLOSE);
+
     }
 
     @Override
