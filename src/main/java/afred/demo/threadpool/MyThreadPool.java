@@ -34,7 +34,7 @@ public class MyThreadPool {
                     namePrefix + threadNumber.getAndIncrement(),
                     0);
             t.setUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
-                @Override
+//                @Override
                 public void uncaughtException(Thread t, Throwable e) {
                     System.out.println("uncaught exception : " + t.getName() + ", " + e);
                 }
@@ -53,14 +53,14 @@ public class MyThreadPool {
         service.execute(new Runnable() {
             @Override
             public void run() {
-                int i = 1 / 0;
+//                int i = 1 / 0;
             }
         });
 
         service.submit(new Runnable() {
-            @Override
+//            @Override
             public void run() {
-                int i = 1 / 0;
+//                int i = 1 / 0;
             }
         });
 

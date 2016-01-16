@@ -22,11 +22,11 @@
         <version>1.4.10.Final</version>
     </dependency>
 
-    <dependency>
-        <groupId>com.alibaba</groupId>
-        <artifactId>fastjson</artifactId>
-        <version>1.1.39</version>
-    </dependency>
+    <!--<dependency>-->
+        <!--<groupId>com.alibaba</groupId>-->
+        <!--<artifactId>fastjson</artifactId>-->
+        <!--<version>1.1.36</version>-->
+    <!--</dependency>-->
 
 
     <dependency>
@@ -141,6 +141,11 @@
         <!--<version>1.2.3</version>-->
     <!--</dependency>-->
 
+    <dependency>
+        <groupId>net.sf.dozer</groupId>
+        <artifactId>dozer</artifactId>
+        <version>5.2.1</version>
+    </dependency>
 
 </dependencies>
 

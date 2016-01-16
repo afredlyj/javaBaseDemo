@@ -16,9 +16,5 @@ public class BtraceTest {
             int random = RandomUtils.nextInt(100);
             counter.add(random);
         }
-
-
     }
-
-
 }
