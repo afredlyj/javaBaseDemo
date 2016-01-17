@@ -2,6 +2,7 @@ package afred.demo.btrace;
 
 import org.apache.commons.lang.math.RandomUtils;
 
+
 /**
  * Created by winnie on 16/1/16.
  */
@@ -16,5 +17,7 @@ public class BtraceTest {
             int random = RandomUtils.nextInt(100);
             counter.add(random);
         }
+
+
     }
 }

@@ -14,13 +14,11 @@ import static com.sun.btrace.BTraceUtils.timeNanos;
 @BTrace
 public class TraceScript {
 
-
-    private static int record = 0;
-
+    // 瀹氫箟thread local
     @TLS private static long startTime = 0;
 
     /**
-     * 启动命令
+     * 鍚姩
      * btrace <PID> <Path\>TraceScript.java
      * @param num
      * @param result
@@ -31,23 +29,22 @@ public class TraceScript {
         println("======");
         println(strcat("parameter num: ",str(num)));
         println(strcat("return value:",str(result)));
-        record = result;
 
         long endTime = timeNanos();
 
-        println(strcat("add 方法耗时", str(endTime - startTime)));
+        println(strcat("add elapsed ", str(endTime - startTime)));
+        println();
     }
 
     @OnMethod(clazz = "afred.demo.btrace.Counter", method = "add")
     public static void traceStart(int num) {
+        println("start======");
 
         startTime = timeNanos();
+        println();
+
     }
 
-    @OnTimer(1000)
-    public static void print() {
-        println("定时打印====");
-        println(str(record));
-    }
+
 
 }
