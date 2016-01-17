@@ -1,5 +1,6 @@
 package afred.demo.netty.dispatcher.handler;
 
+import afred.demo.netty.dispatcher.data.HttpBodyHolder;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.handler.codec.http.FullHttpRequest;
@@ -30,26 +31,21 @@ public class DispatcherHandler extends SimpleChannelInboundHandler<FullHttpReque
 
         logger.debug("request uri : {}", msg.getUri());
 
+//        HttpBodyHolder holder = new HttpBodyHolder(msg);
+
         /**
-         * Èç¹ûÊÇ¼òµ¥µÄÂß¼­²Ù×÷£¬¿ÉÒÔ²»ÐèÒªEventExecutorGroup£¬¼õÉÙÉÏÏÂÎÄÇÐ»»
+         * channelå’Œpipelineç»‘å®šï¼Œå¦‚æžœæ˜¯åŒä¸€ä¸ªchannelï¼Œåœ¨ç¬¬ä¸€æ¬¡è¯·æ±‚ä¹‹åŽï¼Œpipelineçš„handlerå°±å›ºå®šäº†ã€‚
+         * è¿™ä¸ªæ–¹æ¡ˆæ˜¯é”™è¯¯çš„ã€‚
          */
-        // todo ¸Ä³ÉSpring£¬²¢¿ÉÅäÖÃ
         if ("/SimpleRequest".equals(msg.getUri())) {
             ctx.pipeline().addLast("simpleHttpHandler", new HttpServerHandler());
-
         } else {
             ctx.pipeline().addLast(eventExecutorGroup, "groupHttpHandler", new HttpServerHandler());
         }
 
-        // ±£Ö¤¸ÃhandlerÖ»ÓÐÔÚµÚÒ»´Îµ÷ÓÃÊ±Ö´ÐÐ
         ctx.pipeline().remove(this);
         logger.debug("handler names : {}", ctx.pipeline().names());
 
-        /**
-         * SimpleChannelInboundHandler »á×Ô¶¯releaseÒ»´Î£¬ËùÒÔÎªÁË·ÀÖ¹
-         * io.netty.util.IllegalReferenceCountException: refCnt: 0, decrement: 1£¬
-         * ÕâÀïÐèÒªÊÖ¶¯Ôö¼ÓÒ»´ÎmsgÒýÓÃ¡£
-         */
         ReferenceCountUtil.retain(msg);
         ctx.fireChannelRead(msg);
 

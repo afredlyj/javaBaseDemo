@@ -3,24 +3,27 @@ package afred.demo.netty.dispatcher.handler;
 import afred.demo.netty.dispatcher.data.HttpBodyHolder;
 import afred.demo.netty.dispatcher.util.NettyUtil;
 import io.netty.buffer.ByteBuf;
+import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.handler.codec.http.*;
+import io.netty.util.CharsetUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
 /**
  * Created by winnie on 2014-11-09 .
  */
-public class HttpServerHandler extends SimpleChannelInboundHandler<FullHttpRequest> {
+public class HttpBodyHolderHandler extends SimpleChannelInboundHandler<HttpBodyHolder> {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Override
-    protected void channelRead0(ChannelHandlerContext ctx, FullHttpRequest request) throws Exception {
+    protected void channelRead0(ChannelHandlerContext ctx, HttpBodyHolder request) throws Exception {
 
         logger.debug("receive data : {}", request.getClass());
 
@@ -37,14 +40,14 @@ public class HttpServerHandler extends SimpleChannelInboundHandler<FullHttpReque
         response(ctx, request, "hello world".getBytes(StandardCharsets.UTF_8));
     }
 
-    private void response(ChannelHandlerContext ctx, FullHttpRequest request, byte[] bytes) {
+    private void response(ChannelHandlerContext ctx, HttpBodyHolder holder, byte[] bytes) {
 
         ByteBuf byteBuf = ctx.alloc().buffer();
         DefaultFullHttpResponse response = NettyUtil.createHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.OK, byteBuf);
         response.content().writeBytes(bytes);
         response.headers().set("Content-type", "text/plain;charset=UTF-8");
 
-        boolean keepAlive = HttpHeaders.isKeepAlive(request);
+        boolean keepAlive = holder.isKeepAlive();
         HttpHeaders.setKeepAlive(response, keepAlive);
         int len = response.content().readableBytes();
         logger.debug("response length : {}", len);

@@ -1,7 +1,9 @@
 package afred.demo.netty.dispatcher.init;
 
 import afred.demo.netty.dispatcher.handler.DispatcherHandler;
+import afred.demo.netty.dispatcher.handler.HttpBodyHolderHandler;
 import afred.demo.netty.dispatcher.handler.HttpServerHandler;
+import afred.demo.netty.dispatcher.handler.MyLoggerHandler;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.nio.NioSocketChannel;
@@ -28,6 +30,7 @@ public class HttpServerInitializer extends ChannelInitializer<NioSocketChannel> 
     @Override
     protected void initChannel(NioSocketChannel ch) throws Exception {
 
+
         ChannelPipeline pipeline = ch.pipeline();
         pipeline.addLast("decoder", new HttpRequestDecoder());
         pipeline.addLast("encoder", new HttpResponseEncoder());
@@ -36,7 +39,9 @@ public class HttpServerInitializer extends ChannelInitializer<NioSocketChannel> 
          * before the HttpObjectAggregator in the ChannelPipeline.
          */
         pipeline.addLast("aggregator", new HttpObjectAggregator(1048576));
-//        pipeline.addLast("serverhandler", new HttpServerHandler());
-        pipeline.addLast("dispatcher", new DispatcherHandler(group));
+        pipeline.addLast("logger", new MyLoggerHandler());
+        pipeline.addLast("dispatcher", new HttpServerHandler());
+
+        logger.debug("pipeline 初始化 : {}", pipeline.names());
     }
 }
