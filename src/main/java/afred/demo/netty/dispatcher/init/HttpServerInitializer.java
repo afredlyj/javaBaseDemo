@@ -14,6 +14,8 @@ import io.netty.util.concurrent.EventExecutorGroup;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.concurrent.Executors;
+
 /**
  * Created by winnie on 2014-11-09 .
  */
@@ -39,8 +41,8 @@ public class HttpServerInitializer extends ChannelInitializer<NioSocketChannel> 
          * before the HttpObjectAggregator in the ChannelPipeline.
          */
         pipeline.addLast("aggregator", new HttpObjectAggregator(1048576));
-        pipeline.addLast("logger", new MyLoggerHandler());
-        pipeline.addLast("dispatcher", new HttpServerHandler());
+//        pipeline.addLast("logger", new MyLoggerHandler());
+        pipeline.addLast("dispatcher", new DispatcherHandler(Executors.newFixedThreadPool(5)));
 
         logger.debug("pipeline 初始化 : {}", pipeline.names());
     }

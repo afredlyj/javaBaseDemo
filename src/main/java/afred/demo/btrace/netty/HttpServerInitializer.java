@@ -1,11 +1,9 @@
 package afred.demo.btrace.netty;
 
-import afred.demo.netty.dispatcher.handler.HttpServerHandler;
 import com.google.common.base.Preconditions;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
-import io.netty.channel.ServerChannel;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.handler.codec.http.HttpObjectAggregator;
 import io.netty.handler.codec.http.HttpRequestDecoder;

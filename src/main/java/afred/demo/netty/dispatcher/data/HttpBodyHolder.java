@@ -22,6 +22,10 @@ public class HttpBodyHolder implements Serializable {
 
     private long startTime;
 
+    public long getStartTime() {
+        return startTime;
+    }
+
     public HttpBodyHolder(FullHttpRequest request) {
         this.uri = request.getUri();
         this.message = request;

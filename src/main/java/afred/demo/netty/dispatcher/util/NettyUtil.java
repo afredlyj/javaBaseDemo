@@ -1,13 +1,20 @@
 package afred.demo.netty.dispatcher.util;
 
 import afred.demo.netty.dispatcher.data.HttpBodyHolder;
+import afred.demo.thread.SyncTest;
 import io.netty.buffer.ByteBuf;
+import io.netty.channel.ChannelFutureListener;
+import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.http.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Created by winnie on 2016-01-17 .
  */
 public class NettyUtil {
+
+    private static final Logger logger = LoggerFactory.getLogger(NettyUtil.class);
 
     public static byte[] getBytes(ByteBuf byteBuf) {
 
@@ -26,5 +33,29 @@ public class NettyUtil {
 
     public static DefaultFullHttpResponse createHttpResponse(HttpVersion version, HttpResponseStatus status, ByteBuf byteBuf) {
         return new DefaultFullHttpResponse(version, status, byteBuf);
+    }
+
+    public static void response(ChannelHandlerContext ctx, HttpBodyHolder holder, byte[] bytes) {
+
+        logger.info("耗时 : {}", (System.currentTimeMillis() - holder.getStartTime()));
+
+        ByteBuf byteBuf = ctx.alloc().buffer();
+        DefaultFullHttpResponse response = NettyUtil.createHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.OK, byteBuf);
+        response.content().writeBytes(bytes);
+        response.headers().set("Content-type", "text/plain;charset=UTF-8");
+
+        boolean keepAlive = holder.isKeepAlive();
+        HttpHeaders.setKeepAlive(response, keepAlive);
+        int len = response.content().readableBytes();
+
+        logger.debug("response length : {}", len);
+        HttpHeaders.setContentLength(response, len);
+
+        if (!keepAlive) {
+            ctx.writeAndFlush(response).addListener(ChannelFutureListener.CLOSE);
+        } else {
+
+            ctx.writeAndFlush(response);
+        }
     }
 }
