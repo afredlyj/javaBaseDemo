@@ -28,7 +28,7 @@ public class MyThreadPool {
 
         }
 
-        @Override
+//        @Override
         public Thread newThread(Runnable r) {
             Thread t = new Thread(group, r,
                     namePrefix + threadNumber.getAndIncrement(),
@@ -51,7 +51,7 @@ public class MyThreadPool {
         ExecutorService service = Executors.newFixedThreadPool(2, new MyThreadFactory());
 
         service.execute(new Runnable() {
-            @Override
+//            @Override
             public void run() {
 //                int i = 1 / 0;
             }

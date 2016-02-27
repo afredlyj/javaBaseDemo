@@ -9,12 +9,15 @@ import io.netty.handler.codec.http.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Date;
+
 /**
  * Created by winnie on 2016-01-17 .
  */
 public class NettyUtil {
 
     private static final Logger logger = LoggerFactory.getLogger(NettyUtil.class);
+    private static final String HELLO = "hello";
 
     public static byte[] getBytes(ByteBuf byteBuf) {
 
@@ -24,10 +27,15 @@ public class NettyUtil {
             content = byteBuf.array();
         } else {
             content = new byte[length];
-            byteBuf.getBytes(byteBuf.readerIndex(), content);
+            getBytes(byteBuf, content);
         }
 
+
         return content;
+    }
+
+    private static ByteBuf getBytes(ByteBuf byteBuf, byte[] content) {
+        return byteBuf.getBytes(byteBuf.readerIndex(), content);
     }
 
 
@@ -49,6 +57,9 @@ public class NettyUtil {
         int len = response.content().readableBytes();
 
         logger.debug("response length : {}", len);
+
+
+
         HttpHeaders.setContentLength(response, len);
 
         if (!keepAlive) {
@@ -57,5 +68,9 @@ public class NettyUtil {
 
             ctx.writeAndFlush(response);
         }
+    }
+
+    public static void main(String[] args) {
+        System.out.println(HELLO);
     }
 }
