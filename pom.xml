@@ -6,9 +6,13 @@
 
     <groupId>afred.javademo</groupId>
     <artifactId>DemoCode</artifactId>
+    <packaging>pom</packaging>
     <version>1.0</version>
+    <modules>
+        <module>spring3-hibernate4-validator</module>
+    </modules>
 
-<dependencies>
+    <dependencies>
 
     <dependency>
         <groupId>junit</groupId>
