@@ -1,7 +1,6 @@
-package afred.demo.validator.hibernate;
+package afred.demo.validator.hibernate.crossparameter;
 
-import afred.demo.validator.hibernate.crossparameter.LuggageCountMatchesPassengerCount;
-import afred.demo.validator.hibernate.crossparameter.PieceOfLuggage;
+import afred.demo.validator.hibernate.Person;
 import afred.demo.validator.hibernate.custom.CaseMode;
 import afred.demo.validator.hibernate.custom.CheckCase;
 

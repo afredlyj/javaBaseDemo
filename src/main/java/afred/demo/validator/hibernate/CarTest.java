@@ -108,7 +108,7 @@ public class CarTest {
         assertEquals( 1, constraintViolations.size() );
     }
 
-    private  static <T> void printViolation(Set<ConstraintViolation<T>> constraintViolations) {
+    public static <T> void printViolation(Set<ConstraintViolation<T>> constraintViolations) {
         System.out.println("violations size : " + constraintViolations.size());
         Iterator<ConstraintViolation<T>> iterator = constraintViolations.iterator();
         while (iterator.hasNext()) {
