@@ -3,7 +3,7 @@ package afred.demo.jdk.arrays;
 /**
  * Created by Afred on 15/3/18.
  */
-public class Student {
+public class Student implements Comparable<Student> {
 
     public Student(String name) {
         this.name = name;
@@ -51,5 +51,9 @@ public class Student {
                 ", age=" + age +
                 ", className='" + className + '\'' +
                 '}';
+    }
+
+    @Override public int compareTo(Student o) {
+        return this.getName().compareTo(o.getName());
     }
 }

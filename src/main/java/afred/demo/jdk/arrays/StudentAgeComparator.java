@@ -5,7 +5,7 @@ import java.util.Comparator;
 /**
  * Created by Afred on 15/3/18.
  */
-public class StudengComparator implements Comparator<Student> {
+public class StudentAgeComparator implements Comparator<Student> {
 
     @Override
     public int compare(Student o1, Student o2) {

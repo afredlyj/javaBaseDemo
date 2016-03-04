@@ -34,5 +34,11 @@ public class FixedLengthDecoderTest {
 //        Assert.assertNull(channel.readInbound());
     }
 
+    @Test public void init() {
+
+
+
+    }
+
 
 }
