@@ -1,4 +1,4 @@
-package afred.demo.thread;
+package afred.javademo.concurrent.thread;
 
 import junit.framework.Assert;
 import org.junit.Test;
@@ -10,13 +10,6 @@ import java.util.concurrent.TimeUnit;
  * Created by Afred on 15/7/27.
  */
 public class ThreadSchedule {
-
-//    public static void main(String[] args) {
-//
-//        Thread thread1 = new Thread(new Task());
-//        System.out.println("thread state : " + thread1.getState());
-//
-//    }
 
     @Test
     public void newState() {
@@ -53,7 +46,7 @@ public class ThreadSchedule {
         latch.await();
 
         try {
-            // ä¿è¯mainçº¿ç¨‹æ²¡æœ‰æå‰é€€å‡º
+            // ±£Ö¤mainÏß³ÌÃ»ÓĞÌáÇ°ÍË³ö
             TimeUnit.SECONDS.sleep(5);
 
         } catch (Exception e) {
@@ -80,7 +73,7 @@ public class ThreadSchedule {
         synchronized (obj) {
             obj.notify();
 
-            // æ­¤æ—¶é”å¹¶æ²¡æœ‰é‡Šæ”¾ï¼Œçº¿ç¨‹tè°ƒç”¨waitä¹‹åï¼Œé‡å…¥synchronizedæ–¹æ³•ï¼Œå¤„äºBLOCKEDçŠ¶æ€
+            // ´ËÊ±Ëø²¢Ã»ÓĞÊÍ·Å£¬Ïß³Ìtµ÷ÓÃwaitÖ®ºó£¬ÖØÈësynchronized·½·¨£¬´¦ÓÚBLOCKED×´Ì¬
             System.out.println("thread state : " + t.getState());
             Assert.assertTrue(t.getState() == Thread.State.BLOCKED);
 
@@ -92,6 +85,7 @@ public class ThreadSchedule {
 
             }
         }
+
         try {
             TimeUnit.SECONDS.sleep(3);
 
@@ -102,7 +96,7 @@ public class ThreadSchedule {
     }
 
     @Test
-    public void waitingState() {
+    public void waitState() {
         Thread t = new Thread(new Task3(new Object()));
         t.start();
 
@@ -112,9 +106,81 @@ public class ThreadSchedule {
         } catch (Exception e) {
         }
 
-        // çº¿ç¨‹tè°ƒç”¨waitä¹‹åï¼Œå¤„äºWAITINGçŠ¶æ€
+        // Ïß³Ìtµ÷ÓÃwaitÖ®ºó£¬´¦ÓÚWAITING×´Ì¬
         System.out.println("thread state : " + t.getState());
         Assert.assertTrue(t.getState() == Thread.State.WAITING);
+
+    }
+
+    @Test
+    public void waitState2() throws InterruptedException {
+
+        final CountDownLatch latch = new CountDownLatch(2);
+        final Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    latch.countDown();
+                    TimeUnit.SECONDS.sleep(5);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        thread.start();
+
+        Thread t2 = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+
+                    latch.countDown();
+
+                    thread.join();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        });
+
+        t2.start();
+
+        latch.await();
+
+        Assert.assertTrue(t2.getState() == Thread.State.WAITING);
+    }
+
+    @Test
+    public void waitState3() throws InterruptedException {
+
+//        final CountDownLatch latch = new CountDownLatch(1);
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+
+//                    latch.countDown();
+                    TimeUnit.SECONDS.sleep(5);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        thread.start();
+
+//        latch.await();
+        try {
+            TimeUnit.SECONDS.sleep(2);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+
+        System.out.printf("thread state : " + thread.getState());
+        Assert.assertTrue(thread.getState() == Thread.State.TIMED_WAITING);
 
     }
 
@@ -142,7 +208,7 @@ public class ThreadSchedule {
 
         }
 
-        // è°ƒç”¨wait(timeout) ï¼Œçº¿ç¨‹tå¤„äºTIMED_WAITINGçŠ¶æ€
+        // µ÷ÓÃwait(timeout) £¬Ïß³Ìt´¦ÓÚTIMED_WAITING×´Ì¬
         System.out.println("thread state : " + t.getState());
         Assert.assertTrue(t.getState() == Thread.State.TIMED_WAITING);
     }
@@ -210,9 +276,10 @@ class Task3 implements Runnable {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-
-            System.out.println("out of synchronized : " + Thread.currentThread().getState());
         }
+
+        System.out.println("out of synchronized : " + Thread.currentThread().getState());
+
     }
 }
 

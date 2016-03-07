@@ -10,6 +10,10 @@
     <version>1.0</version>
     <modules>
         <module>spring3-hibernate4-validator</module>
+        <module>netty-demo</module>
+        <module>commom</module>
+        <module>open-source-usage</module>
+        <module>jdk-usage</module>
     </modules>
 
     <dependencies>
@@ -182,6 +186,20 @@
     </dependency>
 
 </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.3.2</version>
+                <configuration>
+                    <source>1.7</source>
+                    <target>1.7</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 
 </project>
