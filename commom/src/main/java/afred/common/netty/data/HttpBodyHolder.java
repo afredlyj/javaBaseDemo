@@ -1,6 +1,6 @@
-package afred.demo.netty.dispatcher.data;
+package afred.common.netty.data;
 
-import afred.demo.netty.dispatcher.util.NettyUtil;
+import afred.common.netty.util.NettyUtil;
 import io.netty.handler.codec.http.FullHttpRequest;
 import io.netty.handler.codec.http.HttpHeaders;
 import io.netty.handler.codec.http.HttpMessage;
@@ -30,6 +30,7 @@ public class HttpBodyHolder implements Serializable {
         this.uri = request.getUri();
         this.message = request;
         this.content = NettyUtil.getBytes(request.content());
+
         this.headers = request.headers();
         startTime = System.currentTimeMillis();
     }

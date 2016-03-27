@@ -1,4 +1,4 @@
-package afred.demo.netty.dispatcher.handler;
+package afred.javademo.dispatcher.handler;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.http.FullHttpRequest;

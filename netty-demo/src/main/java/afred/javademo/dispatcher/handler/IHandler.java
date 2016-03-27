@@ -1,6 +1,6 @@
-package afred.demo.netty.dispatcher.handler;
+package afred.javademo.dispatcher.handler;
 
-import afred.demo.netty.dispatcher.data.HttpBodyHolder;
+import afred.common.netty.data.HttpBodyHolder;
 import io.netty.channel.ChannelHandlerContext;
 
 /**

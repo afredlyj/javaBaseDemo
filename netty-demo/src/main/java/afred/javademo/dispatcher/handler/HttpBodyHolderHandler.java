@@ -1,18 +1,15 @@
-package afred.demo.netty.dispatcher.handler;
+package afred.javademo.dispatcher.handler;
 
-import afred.demo.netty.dispatcher.data.HttpBodyHolder;
-import afred.demo.netty.dispatcher.util.NettyUtil;
+import afred.common.netty.data.HttpBodyHolder;
+import afred.common.netty.util.NettyUtil;
 import io.netty.buffer.ByteBuf;
-import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.handler.codec.http.*;
-import io.netty.util.CharsetUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
 /**

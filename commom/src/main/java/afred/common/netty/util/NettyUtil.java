@@ -1,5 +1,6 @@
 package afred.common.netty.util;
 
+import afred.common.netty.data.HttpBodyHolder;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandlerContext;
@@ -81,6 +82,33 @@ public class NettyUtil {
         int len = response.content().readableBytes();
 
         logger.debug("response length : {}", len);
+
+        HttpHeaders.setContentLength(response, len);
+
+        if (!keepAlive) {
+            ctx.writeAndFlush(response).addListener(ChannelFutureListener.CLOSE);
+        } else {
+
+            ctx.writeAndFlush(response);
+        }
+    }
+
+    public static void response(ChannelHandlerContext ctx, HttpBodyHolder holder, byte[] bytes) {
+
+        logger.info("耗时 : {}", (System.currentTimeMillis() - holder.getStartTime()));
+
+        ByteBuf byteBuf = ctx.alloc().buffer();
+        DefaultFullHttpResponse response = NettyUtil.createHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.OK, byteBuf);
+        response.content().writeBytes(bytes);
+        response.headers().set("Content-type", "text/plain;charset=UTF-8");
+
+        boolean keepAlive = holder.isKeepAlive();
+        HttpHeaders.setKeepAlive(response, keepAlive);
+        int len = response.content().readableBytes();
+
+        logger.debug("response length : {}", len);
+
+
 
         HttpHeaders.setContentLength(response, len);
 

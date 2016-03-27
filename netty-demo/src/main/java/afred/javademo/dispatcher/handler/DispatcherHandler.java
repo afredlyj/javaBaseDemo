@@ -1,23 +1,22 @@
-package afred.demo.netty.dispatcher.handler;
+package afred.javademo.dispatcher.handler;
 
-import afred.demo.netty.dispatcher.data.HttpBodyHolder;
+import afred.common.netty.data.HttpBodyHolder;
 import com.google.common.base.Preconditions;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.handler.codec.http.FullHttpRequest;
-import io.netty.util.ReferenceCountUtil;
-import io.netty.util.concurrent.EventExecutorGroup;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Created by winnie on 2015-08-09 .
  */
+@ChannelHandler.Sharable
 public class DispatcherHandler extends SimpleChannelInboundHandler<FullHttpRequest> {
 
     private static final Logger logger = LoggerFactory.getLogger(DispatcherHandler.class);
@@ -42,8 +41,8 @@ public class DispatcherHandler extends SimpleChannelInboundHandler<FullHttpReque
         final HttpBodyHolder holder = new HttpBodyHolder(msg);
 
         /**
-         * channelå’Œpipelineç»‘å®šï¼Œå¦‚æžœæ˜¯åŒä¸€ä¸ªchannelï¼Œåœ¨ç¬¬ä¸€æ¬¡è¯·æ±‚ä¹‹åŽï¼Œpipelineçš„handlerå°±å›ºå®šäº†ã€‚
-         * è¿™ä¸ªæ–¹æ¡ˆæ˜¯é”™è¯¯çš„ã€‚
+         * channelºÍpipeline°ó¶¨£¬Èç¹ûÊÇÍ¬Ò»¸öchannel£¬ÔÚµÚÒ»´ÎÇëÇóÖ®ºó£¬pipelineµÄhandler¾Í¹Ì¶¨ÁË¡£
+         * Õâ¸ö·½°¸ÊÇ´íÎóµÄ¡£
          */
 //        if ("/SimpleRequest".equals(msg.getUri())) {
 //            ctx.pipeline().addLast("simpleHttpHandler", new HttpServerHandler());
