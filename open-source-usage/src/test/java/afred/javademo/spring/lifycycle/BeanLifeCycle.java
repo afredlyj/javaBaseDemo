@@ -1,18 +1,23 @@
-package afred.demo.spring.factorybean;
+package afred.javademo.spring.lifycycle;
 
-import afred.demo.spring.bean.People;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.junit.Test;
+import org.springframework.context.support.FileSystemXmlApplicationContext;
 
 import java.util.Arrays;
 
+import afred.javademo.spring.bean.People;
+import afred.javademo.spring.factorybean.AfredFactoryBean;
+import afred.javademo.spring.factorybean.PeopleManager;
+
 /**
- * Created by winnie on 15/12/12.
+ * Created by winnie on 2016-04-10 .
  */
-public class Test {
+public class BeanLifeCycle {
+
+    @Test public void test() {
+        FileSystemXmlApplicationContext context = new FileSystemXmlApplicationContext("src\\test\\java\\afred\\javademo\\spring\\lifycycle\\applicationContext.xml");
 
 
-    public static void main(String[] args) {
-        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
         System.out.printf("bean names : " + Arrays.asList(context.getBeanDefinitionNames()));
 
         AfredFactoryBean factoryBean = (AfredFactoryBean) context.getBean(AfredFactoryBean.class);
@@ -24,5 +29,7 @@ public class Test {
         PeopleManager manager = (PeopleManager) context.getBean(PeopleManager.class);
         System.out.println("manager people info : " + manager.getPeople().getName());
     }
+
+
 
 }

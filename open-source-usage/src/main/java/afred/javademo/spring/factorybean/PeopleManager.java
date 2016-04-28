@@ -1,6 +1,7 @@
-package afred.demo.spring.factorybean;
+package afred.javademo.spring.factorybean;
 
-import afred.demo.spring.bean.People;
+
+import afred.javademo.spring.bean.People;
 
 /**
  * Created by winnie on 15/12/12.

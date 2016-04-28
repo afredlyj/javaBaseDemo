@@ -1,4 +1,4 @@
-package afred.demo.spring.bean;
+package afred.javademo.spring.bean;
 
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;

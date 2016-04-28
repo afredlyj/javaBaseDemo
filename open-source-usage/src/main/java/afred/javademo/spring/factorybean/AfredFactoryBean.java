@@ -1,8 +1,10 @@
-package afred.demo.spring.factorybean;
+package afred.javademo.spring.factorybean;
 
-import afred.demo.spring.bean.LogUtils;
-import afred.demo.spring.bean.People;
 import org.springframework.beans.factory.FactoryBean;
+
+import afred.javademo.spring.bean.LogUtils;
+import afred.javademo.spring.bean.People;
+
 
 /**
  * Created by winnie on 15/12/12.

@@ -1,7 +1,11 @@
-package afred.demo.spring.bean;
+package afred.javademo.spring.bean;
 
 import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.*;
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.BeanFactoryAware;
+import org.springframework.beans.factory.BeanNameAware;
+import org.springframework.beans.factory.DisposableBean;
+import org.springframework.beans.factory.InitializingBean;
 
 /**
  * Created by winnie on 15/12/12.
@@ -18,6 +22,7 @@ public class People implements BeanFactoryAware, BeanNameAware, InitializingBean
     }
 
     public People(String name, int age) {
+
         this.name = name;
         this.age = age;
     }

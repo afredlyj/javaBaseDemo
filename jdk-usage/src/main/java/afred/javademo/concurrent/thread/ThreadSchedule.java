@@ -46,7 +46,7 @@ public class ThreadSchedule {
         latch.await();
 
         try {
-            // ±£Ö¤mainÏß³ÌÃ»ÓĞÌáÇ°ÍË³ö
+            // ä¿è¯mainçº¿ç¨‹æ²¡æœ‰æå‰é€€å‡º
             TimeUnit.SECONDS.sleep(5);
 
         } catch (Exception e) {
@@ -73,7 +73,7 @@ public class ThreadSchedule {
         synchronized (obj) {
             obj.notify();
 
-            // ´ËÊ±Ëø²¢Ã»ÓĞÊÍ·Å£¬Ïß³Ìtµ÷ÓÃwaitÖ®ºó£¬ÖØÈësynchronized·½·¨£¬´¦ÓÚBLOCKED×´Ì¬
+            // æ­¤æ—¶é”å¹¶æ²¡æœ‰é‡Šæ”¾ï¼Œçº¿ç¨‹tè°ƒç”¨waitä¹‹åï¼Œé‡å…¥synchronizedæ–¹æ³•ï¼Œå¤„äºBLOCKEDçŠ¶æ€
             System.out.println("thread state : " + t.getState());
             Assert.assertTrue(t.getState() == Thread.State.BLOCKED);
 
@@ -106,7 +106,7 @@ public class ThreadSchedule {
         } catch (Exception e) {
         }
 
-        // Ïß³Ìtµ÷ÓÃwaitÖ®ºó£¬´¦ÓÚWAITING×´Ì¬
+        // çº¿ç¨‹tè°ƒç”¨waitä¹‹åï¼Œå¤„äºWAITINGçŠ¶æ€
         System.out.println("thread state : " + t.getState());
         Assert.assertTrue(t.getState() == Thread.State.WAITING);
 
@@ -208,7 +208,7 @@ public class ThreadSchedule {
 
         }
 
-        // µ÷ÓÃwait(timeout) £¬Ïß³Ìt´¦ÓÚTIMED_WAITING×´Ì¬
+        // è°ƒç”¨wait(timeout) ï¼Œçº¿ç¨‹tå¤„äºTIMED_WAITINGçŠ¶æ€
         System.out.println("thread state : " + t.getState());
         Assert.assertTrue(t.getState() == Thread.State.TIMED_WAITING);
     }

@@ -1,4 +1,4 @@
-package afred.demo.spring.bean;
+package afred.javademo.spring.bean;
 
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 /**
  * Created by winnie on 15/12/12.
  */
-@Service("beanFactoryPostProcessor")
+//@Service("beanFactoryPostProcessor")
 public class AfredBeanFactoryPostProcessor implements BeanFactoryPostProcessor{
 
     public AfredBeanFactoryPostProcessor() {

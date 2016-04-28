@@ -1,4 +1,4 @@
-package afred.demo.spring.schema;
+package afred.javademo.spring.schema;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 

@@ -1,4 +1,4 @@
-package afred.demo.spring.bean;
+package afred.javademo.spring.bean;
 
 /**
  * Created by winnie on 15/12/12.

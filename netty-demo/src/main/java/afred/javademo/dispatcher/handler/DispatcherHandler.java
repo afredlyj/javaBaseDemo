@@ -41,8 +41,8 @@ public class DispatcherHandler extends SimpleChannelInboundHandler<FullHttpReque
         final HttpBodyHolder holder = new HttpBodyHolder(msg);
 
         /**
-         * channelºÍpipeline°ó¶¨£¬Èç¹ûÊÇÍ¬Ò»¸öchannel£¬ÔÚµÚÒ»´ÎÇëÇóÖ®ºó£¬pipelineµÄhandler¾Í¹Ì¶¨ÁË¡£
-         * Õâ¸ö·½°¸ÊÇ´íÎóµÄ¡£
+         * channelå’Œpipelineç»‘å®šï¼Œå¦‚æžœæ˜¯åŒä¸€ä¸ªchannelï¼Œåœ¨ç¬¬ä¸€æ¬¡è¯·æ±‚ä¹‹åŽï¼Œpipelineçš„handlerå°±å›ºå®šäº†ã€‚
+         * è¿™ä¸ªæ–¹æ¡ˆæ˜¯é”™è¯¯çš„ã€‚
          */
 //        if ("/SimpleRequest".equals(msg.getUri())) {
 //            ctx.pipeline().addLast("simpleHttpHandler", new HttpServerHandler());
