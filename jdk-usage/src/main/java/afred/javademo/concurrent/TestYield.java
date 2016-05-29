@@ -1,4 +1,9 @@
-package afred.demo.concurrent;
+package afred.javademo.concurrent;
+
+import org.junit.Assert;
+import org.junit.Test;
+
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Created by winnie on 2015-05-11 .
@@ -49,4 +54,14 @@ public class TestYield {
 
     }
 
+
+    @Test
+    public void putIfAbsent() {
+
+        ConcurrentHashMap<String, String> concurrentHashMap = new ConcurrentHashMap<>();
+        String result = concurrentHashMap.putIfAbsent("hello", "world");
+
+        Assert.assertTrue(result == null);
+        Assert.assertTrue(concurrentHashMap.get("hello").equals("world"));
+    }
 }

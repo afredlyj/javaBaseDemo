@@ -1,4 +1,4 @@
-package afred.demo.concurrent;
+package afred.javademo.concurrent;
 
 import java.util.concurrent.TimeUnit;
 
