@@ -45,7 +45,17 @@ public class Test {
         while (count < 100) {
 
             count++;
-            if (count > 5) {
+            if (count > 40) {
+                command = new UserInfoCommand(count, false);
+
+                try {
+                    String result = command.execute();
+                    System.out.println("result : " + result);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            } else if (count > 5) {
                 command = new UserInfoCommand(count, true);
 
                 try {
@@ -70,7 +80,7 @@ public class Test {
     @org.junit.Test
     public void errorThresholdPercentage() {
 
-        int count = 100;
+        int count = 200;
         for (int i = 0; i < count; i++) {
             UserInfoCommand command = new UserInfoCommand(i, true);
 
@@ -88,7 +98,7 @@ public class Test {
     }
 
     @org.junit.Test
-    public void userInfoService() {
+    public void userInfoService() throws InterruptedException {
         UserInfoImpl useInfoService = new UserInfoImpl();
 
 
@@ -98,11 +108,13 @@ public class Test {
 //        }
 
         useInfoService.setRpcfail(true);
-        for (int i = 0; i < 30; i++) {
+        for (int i = 0; i < 2000; i++) {
 
             UserInfoData infoData = useInfoService.queryUserInfo(i);
 
             logger.debug("result : {}", infoData);
+
+//            TimeUnit.SECONDS.sleep(1);
         }
 
     }

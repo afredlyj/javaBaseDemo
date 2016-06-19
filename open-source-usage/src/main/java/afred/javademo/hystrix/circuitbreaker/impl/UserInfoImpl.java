@@ -43,7 +43,9 @@ public class UserInfoImpl implements IUserInfo {
                     .andCommandPropertiesDefaults(HystrixCommandProperties.Setter().withCircuitBreakerEnabled(true))
                     .andCommandPropertiesDefaults(HystrixCommandProperties.Setter().withCircuitBreakerRequestVolumeThreshold(1))
             .andCommandPropertiesDefaults(HystrixCommandProperties.Setter()
-                    .withCircuitBreakerErrorThresholdPercentage(1)));
+                    .withCircuitBreakerErrorThresholdPercentage(1))
+            .andCommandPropertiesDefaults(HystrixCommandProperties.Setter()
+                    .withCircuitBreakerSleepWindowInMilliseconds(1000)));
             this.userId = userId;
         }
 

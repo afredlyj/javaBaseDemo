@@ -18,8 +18,10 @@ public class FutureTest {
     private static Logger logger = LoggerFactory.getLogger(FutureTest.class);
 
     @Test
-    public void callback() {
+    public void callback() throws InterruptedException {
 
+
+        final CountDownLatch countDownLatch = new CountDownLatch(1);
 
         ListeningExecutorService executorService = MoreExecutors.listeningDecorator(Executors.newFixedThreadPool(2));
 
@@ -40,6 +42,8 @@ public class FutureTest {
                 logger.debug("get result success : {}", result);
 
                 // TODO: 16/5/26 获取到前置条件之后,再继续走流程
+                countDownLatch.countDown();
+
             }
 
             @Override
@@ -48,6 +52,8 @@ public class FutureTest {
                 logger.debug("get result exception : {}", t);
             }
         });
+
+        countDownLatch.await();
     }
 
     @Test
