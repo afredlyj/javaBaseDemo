@@ -10,4 +10,5 @@
 
     <bean id="people" class="afred.javademo.spring.bean.People" />
 
+	<bean class="afred.javademo.spring.bean.AfredBeanNameAware"/>
 </beans>

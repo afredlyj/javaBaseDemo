@@ -89,6 +89,10 @@ public class Test {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+
+            logger.debug("command : {}, {}", i, command.getMetrics().getHealthCounts());
+
+//            if (i <= )
         }
 
         logger.debug("run method : {}", UserInfoCommand.runTimes());
