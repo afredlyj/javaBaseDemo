@@ -12,6 +12,8 @@
 
     <context:property-override location="placeholer-override.properties"/>
 
+    <util:properties />
+
     <bean id="student" class="afred.javademo.spring.placeholder.Student">
         <property name="age" value="${age}" />
         <property name="name" value="${name}" />

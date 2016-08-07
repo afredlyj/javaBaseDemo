@@ -55,15 +55,19 @@ public class Test {
                     e.printStackTrace();
                 }
 
-            } else if (count > 5) {
-                command = new UserInfoCommand(count, true);
+            }
 
-                try {
-                    String result = command.execute();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            } else {
+//            else if (count > 5) {
+//                command = new UserInfoCommand(count, true);
+//
+//                try {
+//                    String result = command.execute();
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//            }
+
+            else {
                 TimeUnit.SECONDS.sleep(1);
                 command = new UserInfoCommand(count, true);
 
