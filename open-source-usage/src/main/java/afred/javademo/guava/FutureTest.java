@@ -22,8 +22,6 @@ public class FutureTest {
 
     private static Logger logger = LoggerFactory.getLogger(FutureTest.class);
 
-
-
     @Test
     public void callback() throws InterruptedException {
 
