@@ -113,7 +113,9 @@ public class SimpleTest {
     @BeforeClass
     public static void setup() throws Exception
     {
-        NettyContainer.start().getRegistry().addPerRequestResource(Resource.class);
+//        NettyContainer.start().getRegistry().addPerRequestResource(Resource.class);
+        NettyContainer.start().getRegistry().addSingletonResource(new Resource());
+
         client = ClientBuilder.newClient();
     }
 
@@ -135,14 +137,14 @@ public class SimpleTest {
     public void testBasic() throws Exception
     {
 
-//        String url = generateURL("/test");
-//        System.out.println("url : " + url);
-//        WebTarget target = client.target(url);
-//        String val = target.request().get(String.class);
-//        System.out.println("response : " + val);
-//        Assert.assertEquals("hello world", val);
-
-        TimeUnit.SECONDS.sleep(60);
+        String url = generateURL("/test");
+        System.out.println("url : " + url);
+        WebTarget target = client.target(url);
+        String val = target.request().get(String.class);
+        System.out.println("response : " + val);
+        Assert.assertEquals("hello world", val);
+//
+//        TimeUnit.SECONDS.sleep(60);
     }
 
     @Test
