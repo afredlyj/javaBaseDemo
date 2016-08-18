@@ -1,5 +1,6 @@
 package afred.javademo.dispatcher.resteasy;
 
+import afred.javademo.dispatcher.resteasy.nettyhandler.NettyInboundHandler;
 import com.google.common.collect.Lists;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -87,7 +88,7 @@ public class ConfigurableNettyJaxrsServer extends NettyJaxrsServer {
         channelPipeline.addLast(httpChannelHandlers.toArray(new ChannelHandler[httpChannelHandlers.size()]));
         channelPipeline.addLast(new RestEasyHttpRequestDecoder(dispatcher.getDispatcher(), root, protocol));
         channelPipeline.addLast(new RestEasyHttpResponseEncoder());
-        channelPipeline.addLast(new RequestHandler(dispatcher));
+        channelPipeline.addLast(new NettyInboundHandler(dispatcher));
     }
 
     @Override

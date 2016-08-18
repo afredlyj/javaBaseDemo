@@ -21,6 +21,8 @@ public class SpringConfigurableHandler {
     @Path("/test")
 //    @Produces("text/plain")
     public String hello() {
+
+        logger.debug("request : ");
         return "hello world";
     }
 
