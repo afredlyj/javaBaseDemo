@@ -1,18 +1,17 @@
-package afred.javademo.dispatcher.resteasy;
+package afred.javademo.dispatcher.resteasy.handler;
 
+import afred.javademo.dispatcher.resteasy.annotation.HttpHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Controller;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
 
 /**
  * Created by afred on 16/8/17.
  */
 
-@Controller
+@HttpHandler
 @Path("/spring")
 public class SpringConfigurableHandler {
 
