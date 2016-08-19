@@ -1,5 +1,7 @@
 package afred.javademo.dispatcher.resteasy;
 
+import afred.javademo.dispatcher.resteasy.domain.RequestData;
+import afred.javademo.dispatcher.resteasy.domain.ResponseData;
 import afred.javademo.dispatcher.resteasy.handler.SpringConfigurableHandler;
 import org.jboss.resteasy.plugins.server.netty.NettyContainer;
 import org.junit.AfterClass;
@@ -10,7 +12,9 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.ext.RuntimeDelegate;
 
 import static org.jboss.resteasy.test.TestPortProvider.generateURL;
@@ -67,6 +71,32 @@ public class SpringTest {
         System.out.println("response : " + val);
         Assert.assertEquals("hello world", val);
 //
+    }
+
+    @Test
+    public void testPost() {
+
+
+        String path = "/spring/post";
+        String url = String.format("http://%s:%d%s", getHost(), port, path);
+
+        WebTarget target = client.target(url);
+        String postBody = "hello world";
+        String result = (String) target.request().post(Entity.text(postBody), String.class);
+        Assert.assertEquals(postBody, result);
+    }
+
+    @Test
+    public void postData() {
+        String path = "/spring/post/data";
+        String url = String.format("http://%s:%d%s", getHost(), port, path);
+
+        WebTarget target = client.target(url);
+        RequestData postBody = new RequestData();
+        postBody.setData("hello server");
+        String result = (String) target.request(MediaType.APPLICATION_JSON).post(Entity.json(postBody), String.class);
+
+        System.out.println("result : " + result );
     }
 
     @Test
