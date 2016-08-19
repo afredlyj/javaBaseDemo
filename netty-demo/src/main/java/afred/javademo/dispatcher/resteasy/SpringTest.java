@@ -94,6 +94,7 @@ public class SpringTest {
         WebTarget target = client.target(url);
         RequestData postBody = new RequestData();
         postBody.setData("hello server");
+        postBody.setId(10);
         String result = (String) target.request(MediaType.APPLICATION_JSON).post(Entity.json(postBody), String.class);
 
         System.out.println("result : " + result );

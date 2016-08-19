@@ -6,6 +6,7 @@ import afred.javademo.dispatcher.resteasy.domain.ResponseData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
@@ -39,7 +40,7 @@ public class SpringConfigurableHandler {
     @Path("/post/data")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public ResponseData post(RequestData data) {
+    public ResponseData post(@Valid RequestData data) {
         logger.debug("收到的请求 : {}", data);
 
         ResponseData responseData = new ResponseData();
