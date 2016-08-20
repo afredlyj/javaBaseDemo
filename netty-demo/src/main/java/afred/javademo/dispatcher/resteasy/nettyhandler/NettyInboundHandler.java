@@ -47,6 +47,8 @@ public class NettyInboundHandler extends SimpleChannelInboundHandler<NettyHttpRe
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, NettyHttpRequest request) throws Exception {
 
+        logger.debug("url : {}", request.getUri().getPath());
+
         if (executor != null) {
             executor.execute(new NettyBizTask(ctx, request, dispatcher));
         }  else {

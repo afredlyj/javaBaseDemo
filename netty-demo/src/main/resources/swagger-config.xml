@@ -7,9 +7,17 @@
        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd"
 	default-lazy-init="false">
 
-    <context:annotation-config />
-    <context:component-scan base-package="afred.javademo.dispatcher.resteasy" />
+	<bean id="apiListingResourceJSON" class="io.swagger.jaxrs.listing.ApiListingResource"/>
+	<bean id="apiDeclarationProvider" class="io.swagger.jaxrs.listing.SwaggerSerializers"/>
 
-	<!--<import resource="swagger-config.xml" />-->
+	<bean id="beanConfig" class="io.swagger.jaxrs.config.BeanConfig" lazy-init="false">
+		<property name="title" value="Swagger Sample App"/>
+		<property name="version" value="1.0.0" />
+		<property name="schemes" value="http" />
+		<property name="host" value="localhost:12345" />
+		<property name="basePath" value="/api"/>
+		<property name="resourcePackage" value="io.swagger.resources,afred.javademo.dispatcher"/>
+		<property name="scan" value="true"/>
+	</bean>
 
 </beans>

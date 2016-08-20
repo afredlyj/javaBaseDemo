@@ -1,8 +1,10 @@
 package afred.javademo.dispatcher.resteasy.handler;
 
 import afred.javademo.dispatcher.resteasy.annotation.HttpHandler;
+import afred.javademo.dispatcher.resteasy.domain.Header;
 import afred.javademo.dispatcher.resteasy.domain.RequestData;
 import afred.javademo.dispatcher.resteasy.domain.ResponseData;
+import org.jboss.resteasy.annotations.Form;
 import org.jboss.resteasy.specimpl.ResteasyHttpHeaders;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,8 +48,8 @@ public class SpringConfigurableHandler {
     @Path("/post/data")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public ResponseData post(@Valid RequestData data, @Context HttpHeaders headers) {
-        logger.debug("收到的请求 : {}", data);
+    public ResponseData post(@Valid RequestData data, @Context HttpHeaders headers, @Form Header header) {
+        logger.debug("收到的请求 : {}, {}", data, header);
 
         for (Map.Entry<String, List<String>> each : headers.getRequestHeaders().entrySet()) {
             logger.debug("headers : {}, {}", each.getKey(), each.getValue());

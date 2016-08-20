@@ -17,6 +17,8 @@ import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.ext.RuntimeDelegate;
 
+import java.util.concurrent.TimeUnit;
+
 import static org.jboss.resteasy.test.TestPortProvider.generateURL;
 import static org.jboss.resteasy.util.PortProvider.getHost;
 
@@ -87,7 +89,7 @@ public class SpringTest {
     }
 
     @Test
-    public void postData() {
+    public void postData() throws InterruptedException {
         String path = "/spring/post/data";
         String url = String.format("http://%s:%d%s", getHost(), port, path);
 
