@@ -20,25 +20,6 @@ public class SpringContainer {
 
     private static final Logger logger = LoggerFactory.getLogger(SpringContainer.class);
 
-    public static ApplicationContext start() throws Exception {
-
-        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("rest-easy.xml");
-
-        logger.debug("all beans : {}", Arrays.asList(context.getBeanDefinitionNames()));
-
-
-        ResteasyDeployment deployment = new ResteasyDeployment();
-
-
-        Collection<Object> beansWithAnnotation = context.getBeansWithAnnotation(HttpHandler.class).values();
-
-        logger.debug("beans : {}", beansWithAnnotation);
-        deployment.getResources().addAll(beansWithAnnotation);
-
-        ConfigurableNettyContainer.start(deployment);
-        return context;
-    }
-
     private int port;
 
     private int ioThreads;
