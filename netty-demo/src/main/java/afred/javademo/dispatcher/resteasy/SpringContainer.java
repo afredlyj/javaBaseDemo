@@ -1,20 +1,17 @@
 package afred.javademo.dispatcher.resteasy;
 
-import afred.javademo.dispatcher.resteasy.annotation.HttpHandler;
 import com.google.common.base.Preconditions;
-import io.swagger.jaxrs.listing.ApiListingResource;
-import io.swagger.jaxrs.listing.SwaggerSerializers;
+
 import org.jboss.resteasy.spi.ResteasyDeployment;
-import org.jboss.resteasy.util.PortProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.stereotype.Controller;
 
-import javax.ws.rs.ext.Provider;
-import java.util.Arrays;
 import java.util.Collection;
+
+import afred.javademo.dispatcher.resteasy.annotation.HttpHandler;
+import io.swagger.jaxrs.listing.ApiListingResource;
+import io.swagger.jaxrs.listing.SwaggerSerializers;
 
 /**
  * Created by afred on 16/8/17.
@@ -63,24 +60,24 @@ public class SpringContainer {
         }
 
 
-//        ApiListingResource listingResource = context.getBean(ApiListingResource.class);
+        ApiListingResource listingResource = context.getBean(ApiListingResource.class);
+
+        logger.debug("api list resource bean : {}", listingResource);
+        if (listingResource != null) {
+            deployment.getResources().add(listingResource);
+        }
 //
-//        logger.debug("api list resource bean : {}", listingResource);
-//        if (listingResource != null) {
-//            deployment.getResources().add(listingResource);
-//        }
-
-//        SwaggerSerializers swaggerSerializers = context.getBean(SwaggerSerializers.class);
-//        logger.debug("swagger serializers bean : {}", swaggerSerializers);
-//        if (swaggerSerializers != null) {
-//            deployment.getProviders().add(swaggerSerializers);
-//        }
-
+        SwaggerSerializers swaggerSerializers = context.getBean(SwaggerSerializers.class);
+        logger.debug("swagger serializers bean : {}", swaggerSerializers);
+        if (swaggerSerializers != null) {
+            deployment.getProviders().add(swaggerSerializers);
+        }
+//
 //        Collection<Object> providers = context.getBeansWithAnnotation(Provider.class).values();
 //        if (providers != null) {
 //            deployment.getProviders().addAll(providers);
 //        }
-//
+
         ConfigurableNettyJaxrsServer netty = new ConfigurableNettyJaxrsServer(ioThreads);
         netty.setDeployment(deployment);
         netty.setPort(port);

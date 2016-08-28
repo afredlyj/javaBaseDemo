@@ -60,6 +60,7 @@ public class SumTask extends RecursiveTask<Long> {
         return sum;
     }
 
+
     public static void main(String[] args) throws ExecutionException, InterruptedException {
         ForkJoinPool forkJoinPool = new ForkJoinPool();
 

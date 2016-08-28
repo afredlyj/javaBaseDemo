@@ -81,11 +81,13 @@ public class NettyInboundHandler extends SimpleChannelInboundHandler<NettyHttpRe
                 }
                 catch (Failure e1)
                 {
+                    logger.error("exception", e1);
                     response.reset();
                     response.setStatus(e1.getErrorCode());
                 }
                 catch (Exception ex)
                 {
+                    logger.error("exception : ", ex);
                     response.reset();
                     response.setStatus(500);
                     LogMessages.LOGGER.error(Messages.MESSAGES.unexpected(), ex);

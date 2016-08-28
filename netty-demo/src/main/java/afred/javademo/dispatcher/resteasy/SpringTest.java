@@ -1,8 +1,5 @@
 package afred.javademo.dispatcher.resteasy;
 
-import afred.javademo.dispatcher.resteasy.domain.RequestData;
-import afred.javademo.dispatcher.resteasy.domain.ResponseData;
-import afred.javademo.dispatcher.resteasy.handler.SpringConfigurableHandler;
 import org.jboss.resteasy.plugins.server.netty.NettyContainer;
 import org.junit.AfterClass;
 import org.junit.Assert;
@@ -10,16 +7,17 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import java.util.concurrent.TimeUnit;
+
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.ext.RuntimeDelegate;
 
-import java.util.concurrent.TimeUnit;
+import afred.javademo.dispatcher.resteasy.domain.RequestData;
+import afred.javademo.dispatcher.resteasy.handler.SpringConfigurableHandler;
 
-import static org.jboss.resteasy.test.TestPortProvider.generateURL;
 import static org.jboss.resteasy.util.PortProvider.getHost;
 
 /**
@@ -86,6 +84,7 @@ public class SpringTest {
         String postBody = "hello world";
         String result = (String) target.request().post(Entity.text(postBody), String.class);
         Assert.assertEquals(postBody, result);
+
     }
 
     @Test
@@ -100,6 +99,9 @@ public class SpringTest {
         String result = (String) target.request(MediaType.APPLICATION_JSON).post(Entity.json(postBody), String.class);
 
         System.out.println("result : " + result );
+
+
+        TimeUnit.MINUTES.sleep(10);
     }
 
     @Test

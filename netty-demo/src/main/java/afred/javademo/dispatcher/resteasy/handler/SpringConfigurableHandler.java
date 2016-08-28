@@ -4,6 +4,7 @@ import afred.javademo.dispatcher.resteasy.annotation.HttpHandler;
 import afred.javademo.dispatcher.resteasy.domain.Header;
 import afred.javademo.dispatcher.resteasy.domain.RequestData;
 import afred.javademo.dispatcher.resteasy.domain.ResponseData;
+import io.swagger.annotations.*;
 import org.jboss.resteasy.annotations.Form;
 import org.jboss.resteasy.specimpl.ResteasyHttpHeaders;
 import org.slf4j.Logger;
@@ -23,14 +24,29 @@ import java.util.Set;
  */
 
 @HttpHandler
+@Api(value = "/spring", description = "Operations about pets")
 @Path("/spring")
 public class SpringConfigurableHandler {
 
     private static final Logger logger = LoggerFactory.getLogger(SpringConfigurableHandler.class);
 
     @GET
+    @Path("/{petId}")
+    @ApiOperation(value = "Find pet by ID",
+            notes = "Returns a pet when ID <= 10.  ID > 10 or non-integers will simulate API error conditions"
+    )
+    @ApiResponses(value = { @ApiResponse(code = 400, message = "Invalid ID supplied"),
+            @ApiResponse(code = 404, message = "Pet not found") })
+    public String getPetById(
+            @ApiParam(value = "ID of pet that needs to be fetched", allowableValues = "range[1,10]", required = true)
+            @PathParam("petId") Long petId) throws NotFoundException {
+
+        return "hello";
+    }
+
+
+    @GET
     @Path("/test")
-//    @Produces("text/plain")
     public String hello() {
 
         logger.debug("request : ");
