@@ -9,9 +9,9 @@ import org.springframework.context.ApplicationContext;
 
 import java.util.Collection;
 
+import javax.ws.rs.ext.Provider;
+
 import afred.javademo.dispatcher.resteasy.annotation.HttpHandler;
-import io.swagger.jaxrs.listing.ApiListingResource;
-import io.swagger.jaxrs.listing.SwaggerSerializers;
 
 /**
  * Created by afred on 16/8/17.
@@ -59,24 +59,11 @@ public class SpringContainer {
             deployment.getResources().addAll(beansWithAnnotation);
         }
 
-
-        ApiListingResource listingResource = context.getBean(ApiListingResource.class);
-
-        logger.debug("api list resource bean : {}", listingResource);
-        if (listingResource != null) {
-            deployment.getResources().add(listingResource);
+        Collection<Object> providers = context.getBeansWithAnnotation(Provider.class).values();
+        logger.debug("providers : {}", providers);
+        if (providers != null) {
+            deployment.getProviders().addAll(providers);
         }
-//
-        SwaggerSerializers swaggerSerializers = context.getBean(SwaggerSerializers.class);
-        logger.debug("swagger serializers bean : {}", swaggerSerializers);
-        if (swaggerSerializers != null) {
-            deployment.getProviders().add(swaggerSerializers);
-        }
-//
-//        Collection<Object> providers = context.getBeansWithAnnotation(Provider.class).values();
-//        if (providers != null) {
-//            deployment.getProviders().addAll(providers);
-//        }
 
         ConfigurableNettyJaxrsServer netty = new ConfigurableNettyJaxrsServer(ioThreads);
         netty.setDeployment(deployment);

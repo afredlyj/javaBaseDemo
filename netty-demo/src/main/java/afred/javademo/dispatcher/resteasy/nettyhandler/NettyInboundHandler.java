@@ -1,7 +1,5 @@
 package afred.javademo.dispatcher.resteasy.nettyhandler;
 
-import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.SimpleChannelInboundHandler;
 import org.jboss.resteasy.plugins.server.netty.NettyHttpRequest;
 import org.jboss.resteasy.plugins.server.netty.NettyHttpResponse;
 import org.jboss.resteasy.plugins.server.netty.RequestDispatcher;
@@ -13,6 +11,9 @@ import org.slf4j.LoggerFactory;
 
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
+
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.SimpleChannelInboundHandler;
 
 /**
  * Created by afred on 16/8/18.

@@ -1,9 +1,10 @@
 package afred.javademo.dispatcher.resteasy.domain;
 
+import java.io.Serializable;
+
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.io.Serializable;
 
 /**
  * Created by afred on 16/8/19.
@@ -38,6 +39,7 @@ public class RequestData implements Serializable {
     public String toString() {
         return "RequestData{" +
                 "data='" + data + '\'' +
+                ", id=" + id +
                 '}';
     }
 }

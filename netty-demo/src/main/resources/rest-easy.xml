@@ -10,6 +10,6 @@
     <context:annotation-config />
     <context:component-scan base-package="afred.javademo.dispatcher.resteasy" />
 
-	<import resource="swagger-config.xml" />
+	<!--<import resource="swagger-config.xml" />-->
 
 </beans>

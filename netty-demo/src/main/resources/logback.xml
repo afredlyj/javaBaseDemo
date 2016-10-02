@@ -10,7 +10,7 @@
     <appender-ref ref="STDOUT" />
   </logger>
 
-  <logger name="org.jboss" level="debug">
+  <logger name="org.jboss" level="trace">
     <appender-ref ref="STDOUT" />
 
   </logger>

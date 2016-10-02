@@ -1,6 +1,5 @@
 package afred.javademo.dispatcher.resteasy;
 
-import org.jboss.resteasy.plugins.server.netty.NettyContainer;
 import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;
@@ -55,7 +54,7 @@ public class SpringTest {
         {
 
         }
-        NettyContainer.stop();
+//        NettyContainer.stop();
     }
 
 
@@ -70,8 +69,11 @@ public class SpringTest {
         String val = target.request().get(String.class);
         System.out.println("response : " + val);
         Assert.assertEquals("hello world", val);
+
+        TimeUnit.MINUTES.sleep(10);
 //
     }
+
 
     @Test
     public void testPost() {
