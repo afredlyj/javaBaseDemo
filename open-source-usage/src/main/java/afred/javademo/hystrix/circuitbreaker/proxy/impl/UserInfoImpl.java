@@ -19,6 +19,8 @@ public class UserInfoImpl implements IUserInfo {
 
         logger.debug("query user info : {}", userId);
 
-        return null;
+//        return null;
+        throw new RuntimeException("queryUserInfo exception");
+
     }
 }

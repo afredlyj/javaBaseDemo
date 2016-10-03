@@ -20,7 +20,7 @@ public class UserInfoProxy {
 
     private static final Logger logger = LoggerFactory.getLogger(UserInfoProxy.class);
 
-    @Resource(name = "rpcUserInfoService")
+    @Resource(name = "userInfoImpl")
     private IUserInfo targetService;
 
     @Resource(name = "httpUserInfoService")
