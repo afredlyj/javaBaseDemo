@@ -127,20 +127,16 @@ public class InheritableTest {
         // 单线程执行两个不同的task
         ExecutorService executorService = Executors.newSingleThreadExecutor();
 
-        // 创建线程时,会浅拷贝父线程的inheritableThreadLocals
-        // 线程池中的线程修改inheritableThreadLocal
         executorService.submit(runnable);
 
         TimeUnit.SECONDS.sleep(1);
 
-        // 由于线程池只有一个线程,所以这次执行仍然是 age == 80
         executorService.submit(runnable);
 
         TimeUnit.SECONDS.sleep(1);
 
         System.out.println("in parent thread ");
 
-        // 父线程的t.inheritableThreadLocals并没有被修改
         System.out.println(inheritableThreadLocal.get());
 
     }
