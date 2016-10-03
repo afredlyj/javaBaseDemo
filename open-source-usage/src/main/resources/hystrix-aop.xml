@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd"
+	default-lazy-init="true">
+
+	<context:annotation-config />
+    <context:component-scan base-package="afred.javademo.hystrix.circuitbreaker.proxy.*" />
+
+
+    <bean id="userInfoProxy" class="afred.javademo.hystrix.circuitbreaker.proxy.impl.proxy.UserInfoProxy"/>
+    <bean id="userInfoImpl" class="afred.javademo.hystrix.circuitbreaker.proxy.impl.UserInfoImpl"/>
+
+    <aop:config>
+        <aop:aspect ref="userInfoProxy">
+            <aop:around method="userinfo" pointcut="execution(* afred.javademo.hystrix.circuitbreaker.proxy.impl.UserInfoImpl.queryUserInfo(..))"/>
+        </aop:aspect>
+
+    </aop:config>
+
+</beans>

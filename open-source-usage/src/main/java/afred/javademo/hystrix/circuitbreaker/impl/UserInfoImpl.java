@@ -1,13 +1,15 @@
 package afred.javademo.hystrix.circuitbreaker.impl;
 
-import afred.javademo.hystrix.circuitbreaker.IUserInfo;
-import afred.javademo.hystrix.circuitbreaker.UserInfoData;
 import com.netflix.hystrix.HystrixCommand;
 import com.netflix.hystrix.HystrixCommandGroupKey;
 import com.netflix.hystrix.HystrixCommandProperties;
+
 import org.apache.commons.lang.RandomStringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import afred.javademo.hystrix.circuitbreaker.IUserInfo;
+import afred.javademo.hystrix.circuitbreaker.UserInfoData;
 
 /**
  * Created by afred on 16/5/29.
@@ -65,9 +67,9 @@ public class UserInfoImpl implements IUserInfo {
 
             logger.debug("rpc fail, try to http : {}", userId);
 
-//            HttpUserInfoCommand httpUserInfoCommand = new HttpUserInfoCommand(userId);
-//            return httpUserInfoCommand.execute();
-            return  new UserInfoData();
+            HttpUserInfoCommand httpUserInfoCommand = new HttpUserInfoCommand(userId);
+            return httpUserInfoCommand.execute();
+//            return  new UserInfoData();
         }
     }
 

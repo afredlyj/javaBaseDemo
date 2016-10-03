@@ -2,6 +2,7 @@ package afred.javademo.aop;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  * Created with basicdemo. 
@@ -26,6 +27,13 @@ public class Performer {
 
     public void perform1(String name) {
         logger.info("表演节目 : {}", name);
+    }
+
+    public static void main(String[] args) {
+        ClassPathXmlApplicationContext classPathXmlApplicationContext = new ClassPathXmlApplicationContext("aop.xml");
+        Performer performer = (Performer) classPathXmlApplicationContext.getBean("performer");
+
+        performer.doPerform("hello");
     }
 
 }
