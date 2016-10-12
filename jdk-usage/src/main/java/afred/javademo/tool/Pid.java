@@ -24,7 +24,9 @@ public class Pid {
     }
 
     public static void main(String[] args) {
-        System.out.println("pid : " + getPid());
+        while (true) {
+
+        }
     }
 
 }
