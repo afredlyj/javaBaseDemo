@@ -25,6 +25,12 @@
         <!-- http://stackoverflow.com/questions/17618587/jetty-9-0-embedded-and-resteasy-3-0-keeps-throwing-nosuchmethoderror/19708873#19708873 -->
 
         <dependency>
+            <groupId>com.yam.trace</groupId>
+            <artifactId>easy-trace</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.jboss.resteasy</groupId>
             <artifactId>jaxrs-api</artifactId>
             <version>3.0.10.Final</version>
@@ -219,6 +225,39 @@
                     <findbugsXmlOutputDirectory>target/site</findbugsXmlOutputDirectory>
                 </configuration>
             </plugin>
+
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.3.2</version>
+                <configuration>
+                    <source>1.7</source>
+                    <target>1.7</target>
+                    <encoding>UTF-8</encoding>
+                    <compilerArguments>
+                        <verbose />
+                    </compilerArguments>
+                </configuration>
+            </plugin>
+
+
+            <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-jar-plugin</artifactId>
+                        <configuration>
+
+                            <archive>
+                                <manifest>
+                                    <mainClass>afred.javademo.dispatcher.MainEntry</mainClass>
+                                    <addClasspath>true</addClasspath>
+                                </manifest>
+                            </archive>
+                        </configuration>
+                    </plugin>
+
+
+
         </plugins>
 
     </build>

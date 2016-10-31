@@ -27,7 +27,7 @@ public class TraceScript {
      * @param num
      * @param result
      */
-    @OnMethod(clazz = "afred.demo.btrace.Counter", method = "add", location = @Location(Kind.RETURN))
+    @OnMethod(clazz = "afred.javademo.btrace.Counter", method = "add", location = @Location(Kind.RETURN))
     public static void traceEnd(int num,@Return int result) {
 
         println("======");
@@ -40,7 +40,7 @@ public class TraceScript {
         println();
     }
 
-    @OnMethod(clazz = "afred.demo.btrace.Counter", method = "add")
+    @OnMethod(clazz = "afred.javademo.btrace.Counter", method = "add")
     public static void traceStart(int num) {
         println("start======");
 

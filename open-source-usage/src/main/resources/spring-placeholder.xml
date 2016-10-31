@@ -19,4 +19,8 @@
         <property name="name" value="${name}" />
     </bean>
 
+    <bean class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
+        <property name="l"
+    </bean>
+
 </beans>

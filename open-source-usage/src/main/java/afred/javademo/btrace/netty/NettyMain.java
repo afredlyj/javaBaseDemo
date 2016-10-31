@@ -14,7 +14,7 @@ public class NettyMain {
 
     public static void main(String[] args) throws InterruptedException {
 
-        start(8080);
+        start(8081);
     }
 
     private static void start(int port) throws InterruptedException {
