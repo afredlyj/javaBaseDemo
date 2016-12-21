@@ -1,17 +1,18 @@
 package afred.javademo.hystrix.circuitbreaker;
 
-import afred.javademo.hystrix.circuitbreaker.impl.UserInfoImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.concurrent.TimeUnit;
 
+import afred.javademo.hystrix.circuitbreaker.impl.UserInfoImpl;
+
 /**
  * Created by afred on 16/5/28.
  */
-public class Test {
+public class TestHystrix {
 
-    private static final Logger logger = LoggerFactory.getLogger(Test.class);
+    private static final Logger logger = LoggerFactory.getLogger(TestHystrix.class);
 
     @org.junit.Test
     public void circuit() throws InterruptedException {

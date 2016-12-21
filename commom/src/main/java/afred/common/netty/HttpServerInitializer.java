@@ -1,15 +1,17 @@
 package afred.common.netty;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.socket.nio.NioSocketChannel;
-import io.netty.handler.codec.http.*;
+import io.netty.handler.codec.http.FullHttpRequest;
+import io.netty.handler.codec.http.HttpObjectAggregator;
+import io.netty.handler.codec.http.HttpRequestDecoder;
+import io.netty.handler.codec.http.HttpResponseEncoder;
 import io.netty.util.concurrent.EventExecutorGroup;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.util.concurrent.Executors;
 
 
 /**
@@ -37,10 +39,9 @@ public class HttpServerInitializer extends ChannelInitializer<NioSocketChannel> 
 
 
         ChannelPipeline pipeline = ch.pipeline();
+        pipeline.addLast("logger", new HttpLoggingHandler());
         pipeline.addLast("decoder", new HttpRequestDecoder());
         pipeline.addLast("encoder", new HttpResponseEncoder());
-//
-//        pipeline.addLast(new HttpClientCodec());
 
         /**
          * Be aware that you need to have the HttpResponseEncoder or HttpRequestEncoder

@@ -6,16 +6,16 @@
     </encoder>
   </appender>
 
-  <logger name="io.swagger" level="debug" >
+  <logger name="io.swagger" level="error" >
     <appender-ref ref="STDOUT" />
   </logger>
 
-  <logger name="org.jboss" level="trace">
+  <logger name="org.jboss" level="error">
     <appender-ref ref="STDOUT" />
 
   </logger>
 
-  <root level="DEBUG">
+  <root level="debug">
     <appender-ref ref="STDOUT" />
   </root>
 </configuration>

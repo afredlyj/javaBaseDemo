@@ -35,6 +35,7 @@ public class SpringTest {
 
         ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("rest-easy.xml");
 
+
         int ioThreads = Runtime.getRuntime().availableProcessors();
         SpringContainer container = new SpringContainer(port, ioThreads);
 

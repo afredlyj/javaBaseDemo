@@ -13,6 +13,6 @@ public class AfredBeanNameAware implements BeanNameAware {
 
     @Override
     public void setBeanName(String name) {
-        logger.debug("name : {}", name);
+        logger.debug("AfredBeanNameAware name : {}", name);
     }
 }

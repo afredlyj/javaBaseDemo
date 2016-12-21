@@ -28,7 +28,7 @@ public class CountDownLatchDemo {
 
             latch.countDown();
 
-            System.out.println(Thread.currentThread().getName() + "finish work");
+            System.out.println(Thread.currentThread().getName() + " finish work");
         }
     }
 
@@ -36,6 +36,9 @@ public class CountDownLatchDemo {
     public void work(int size) throws InterruptedException {
 
         CountDownLatch latch = new CountDownLatch(size);
+
+        System.out.println("latch : " + latch);
+
         for (int i = 0; i < size; i++) {
             new Thread(new SubTask(latch)).start();
         }

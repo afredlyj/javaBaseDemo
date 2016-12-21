@@ -1,17 +1,22 @@
 package afred.javademo.dispatcher.handler;
 
-import afred.common.netty.data.HttpBodyHolder;
 import com.google.common.base.Preconditions;
-import io.netty.channel.ChannelHandler;
-import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.SimpleChannelInboundHandler;
-import io.netty.handler.codec.http.FullHttpRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.ExecutorService;
+
+import afred.common.netty.data.HttpBodyHolder;
+import afred.common.netty.util.NettyUtil;
+import io.netty.channel.ChannelHandler;
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.SimpleChannelInboundHandler;
+import io.netty.handler.codec.http.FullHttpRequest;
+import io.netty.handler.codec.http.HttpHeaders;
+import io.netty.handler.codec.http.HttpResponseStatus;
 
 /**
  * Created by winnie on 2015-08-09 .
@@ -31,6 +36,7 @@ public class DispatcherHandler extends SimpleChannelInboundHandler<FullHttpReque
 
         map.putIfAbsent("/hello", new HelloHandler());
         map.putIfAbsent("/asyncHello", new AsyncHelloHandler());
+        map.putIfAbsent("/sleep", new SleepHandler());
     }
 
     @Override
@@ -65,6 +71,10 @@ public class DispatcherHandler extends SimpleChannelInboundHandler<FullHttpReque
             } else {
                 handler.handleRequest(ctx, holder);
             }
+        } else {
+            boolean isKeepAlive = HttpHeaders.isKeepAlive(msg);
+            NettyUtil.response(ctx, isKeepAlive, HttpResponseStatus.NOT_FOUND);
+
         }
 
     }

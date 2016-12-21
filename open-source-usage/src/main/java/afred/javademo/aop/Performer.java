@@ -3,6 +3,7 @@ package afred.javademo.aop;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.stereotype.Service;
 
 /**
  * Created with basicdemo. 
@@ -10,6 +11,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  * Date: 2015-12-29 
  * Time: 14:45
  */
+@Service
 public class Performer {
 
     private static final Logger logger = LoggerFactory.getLogger(Performer.class);
@@ -31,9 +33,11 @@ public class Performer {
 
     public static void main(String[] args) {
         ClassPathXmlApplicationContext classPathXmlApplicationContext = new ClassPathXmlApplicationContext("aop.xml");
-        Performer performer = (Performer) classPathXmlApplicationContext.getBean("performer");
+        Performer performer = (Performer) classPathXmlApplicationContext.getBean(Performer.class);
 
-        performer.doPerform("hello");
+//        performer.doPerform("hello");
+
+        performer.perform();
     }
 
 }

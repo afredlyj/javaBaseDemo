@@ -8,37 +8,45 @@
 	default-lazy-init="true">
 
 	<context:annotation-config />
-	<!--<context:component-scan base-package="com.keke.crm.*" />-->
+	<context:component-scan base-package="afred.javademo.aop.*" />
 
 
-    <bean id="audience" class="afred.javademo.aop.Audience"/>
+    <!--<bean id="audience" class="afred.javademo.aop.Audience"/>-->
 
-    <bean id="performer" class="afred.javademo.aop.Performer"/>
+    <!--&lt;!&ndash;<bean id="performer" class="afred.javademo.aop.Performer"/>&ndash;&gt;-->
 
-    <bean id="magician" class="afred.javademo.aop.Magician" />
+    <!--<bean id="magician" class="afred.javademo.aop.Magician" />-->
 
-    <bean id="volunteer" class="afred.javademo.aop.Volunteer" />
+    <!--<bean id="volunteer" class="afred.javademo.aop.Volunteer" />-->
 
-    <aop:config>
-        <aop:aspect ref="audience">
+    <!--<bean id="jdkRegexpMethodPointcut" class="org.springframework.aop.support.JdkRegexpMethodPointcut">-->
+        <!--<property name="patterns">-->
+            <!--<list>-->
+                <!--<value>perform</value>-->
+            <!--</list>-->
+        <!--</property>-->
+    <!--</bean>-->
 
-            <aop:before method="takeSeats" pointcut="execution(* afred.javademo.aop.Performer.perform(..))"/>
-            <aop:before method="turnOffCellPhones" pointcut="execution(* afred.javademo.aop.Performer.perform(..))"/>
-            <aop:after-returning method="applaund" pointcut="execution(* afred.javademo.aop.Performer.perform(..))"/>
-            <aop:before method="demandRefund" pointcut="execution(* afred.javademo.aop.Performer.perform1(..)) and args(name)" arg-names="name"/>
+    <!--<aop:config>-->
+        <!---->
+        <!--<aop:aspect ref="audience">-->
 
+            <!--&lt;!&ndash;<aop:before method="takeSeats" pointcut="execution(* afred.javademo.aop.Performer.perform(..))"/>&ndash;&gt;-->
+            <!--&lt;!&ndash;<aop:before method="turnOffCellPhones" pointcut="execution(* afred.javademo.aop.Performer.perform(..))"/>&ndash;&gt;-->
+            <!--&lt;!&ndash;<aop:after-returning method="applaund" pointcut="execution(* afred.javademo.aop.Performer.perform(..))"/>&ndash;&gt;-->
+            <!--&lt;!&ndash;<aop:before method="demandRefund" pointcut="execution(* afred.javademo.aop.Performer.perform1(..)) and args(name)" arg-names="name"/>&ndash;&gt;-->
 
-            <aop:around method="watchPerformance" pointcut="execution(* afred.javademo.aop.Performer.doPerform(..))" />
-
-        </aop:aspect>
-
-        <!--<aop:aspect ref="magician">-->
-                <!--<aop:pointcut id="thinking" expression="execution(* Thinker.thinkOfSomething(String)) and args(thoughts)" />-->
-
-            <!--<aop:before method="interceptThoughts" pointcut-ref="thinking" arg-names="thoughts" />-->
+            <!--<aop:around method="watchPerformance" pointcut-ref="jdkRegexpMethodPointcut" />-->
 
         <!--</aop:aspect>-->
 
-    </aop:config>
+        <!--&lt;!&ndash;<aop:aspect ref="magician">&ndash;&gt;-->
+                <!--&lt;!&ndash;<aop:pointcut id="thinking" expression="execution(* Thinker.thinkOfSomething(String)) and args(thoughts)" />&ndash;&gt;-->
+
+            <!--&lt;!&ndash;<aop:before method="interceptThoughts" pointcut-ref="thinking" arg-names="thoughts" />&ndash;&gt;-->
+
+        <!--&lt;!&ndash;</aop:aspect>&ndash;&gt;-->
+
+    <!--</aop:config>-->
 
 </beans>

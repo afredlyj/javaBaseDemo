@@ -19,4 +19,8 @@ public class LogService implements MethodBeforeAdvice {
 //        logger.info("method : {}, {}", method.getName(), Arrays.asList(args));
 
     }
+
+    public static void main(String[] args) {
+        System.out.println(512 >>> 4);
+    }
 }
