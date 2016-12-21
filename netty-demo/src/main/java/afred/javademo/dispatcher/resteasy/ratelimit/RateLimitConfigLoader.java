@@ -16,16 +16,16 @@ import javax.annotation.Nullable;
 /**
  * Created by afred on 16/12/21.
  */
-public class RateLimtConfigLoader implements ZKConfigChangedListener {
+public class RateLimitConfigLoader implements ZKConfigChangedListener {
 
-    private static final Logger logger = LoggerFactory.getLogger(RateLimtConfigLoader.class);
+    private static final Logger logger = LoggerFactory.getLogger(RateLimitConfigLoader.class);
 
     // zk config listener
     private final ZKNodeClient node;
 
     private QPSLimiter limiter;
 
-    public RateLimtConfigLoader(ZKNodeClient node, QPSLimiter limiter) {
+    public RateLimitConfigLoader(ZKNodeClient node, QPSLimiter limiter) {
         this.node = Preconditions.checkNotNull(node);
         this.limiter = Preconditions.checkNotNull(limiter);
     }
