@@ -12,8 +12,6 @@ import io.netty.handler.codec.http.HttpObjectAggregator;
 import io.netty.handler.codec.http.HttpRequestDecoder;
 import io.netty.handler.codec.http.HttpResponseEncoder;
 import io.netty.util.concurrent.EventExecutorGroup;
-
-
 /**
  * Created by winnie on 2014-11-09 .
  */
@@ -39,6 +37,8 @@ public class HttpServerInitializer extends ChannelInitializer<NioSocketChannel> 
 
 
         ChannelPipeline pipeline = ch.pipeline();
+
+//        pipeline.addLast("idle", new IdleChannelHandler(5, 5, 5));
         pipeline.addLast("logger", new HttpLoggingHandler());
         pipeline.addLast("decoder", new HttpRequestDecoder());
         pipeline.addLast("encoder", new HttpResponseEncoder());

@@ -117,10 +117,16 @@ public class NettyUtil {
         HttpHeaders.setContentLength(response, len);
 
         if (!keepAlive) {
+            logger.warn("http 1.0 : {}", ctx.channel());
             ctx.writeAndFlush(response).addListener(CLOSE);
         } else {
 
-            ctx.writeAndFlush(response);
+            ctx.writeAndFlush(response).addListener(new ChannelFutureListener() {
+                @Override
+                public void operationComplete(ChannelFuture future) throws Exception {
+//                    logger.warn("channel complete : {}", future.channel());
+                }
+            });
         }
     }
 

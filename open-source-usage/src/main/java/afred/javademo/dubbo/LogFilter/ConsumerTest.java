@@ -12,7 +12,14 @@ public class ConsumerTest {
 
         HelloService helloService = context.getBean(HelloService.class);
 
-        System.out.println(helloService.sayHello("afred"));
+        for (int i = 0; i < 100; i++) {
+            try {
+                System.out.println(helloService.sayHello("afred"));
+
+            } catch (RuntimeException e) {
+
+            }
+        }
 
     }
 }

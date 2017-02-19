@@ -1,1 +1,2 @@
 requestFilter=afred.javademo.dubbo.logfilter.RequestLogFilter
+hystrixFilter=afred.javademo.hystrix.dubbo.HystrixFilter

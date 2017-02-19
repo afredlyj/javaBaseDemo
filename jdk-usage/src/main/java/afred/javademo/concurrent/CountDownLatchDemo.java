@@ -1,5 +1,7 @@
 package afred.javademo.concurrent;
 
+import org.junit.Test;
+
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
@@ -49,9 +51,18 @@ public class CountDownLatchDemo {
 
     }
 
-    public static void main(String[] args) throws InterruptedException {
+    @Test
+    public void test() throws InterruptedException {
         new CountDownLatchDemo().work(5);
 
+    }
+
+
+    @Test
+    public void acquire() throws InterruptedException {
+        CountDownLatch countDownLatch = new CountDownLatch(1);
+
+        countDownLatch.await();
     }
 
 

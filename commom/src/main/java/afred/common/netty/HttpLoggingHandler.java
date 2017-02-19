@@ -3,6 +3,8 @@ package afred.common.netty;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.concurrent.TimeUnit;
+
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelPromise;
 import io.netty.handler.logging.LoggingHandler;
@@ -39,7 +41,9 @@ public class HttpLoggingHandler extends LoggingHandler {
         long totalTime = System.nanoTime() - startTime;
         startTime = 0;
 
-        logger.info("channel({}) 处理耗时 : {}", ctx.channel(), totalTime);
+        if (TimeUnit.MILLISECONDS.convert(totalTime, TimeUnit.NANOSECONDS) >= 300) {
+            logger.warn("channel({}) 处理耗时 : {}", ctx.channel(), totalTime);
+        }
 
         super.flush(ctx);
     }
@@ -47,5 +51,6 @@ public class HttpLoggingHandler extends LoggingHandler {
     @Override
     public void close(ChannelHandlerContext ctx, ChannelPromise promise) throws Exception {
         super.close(ctx, promise);
+        logger.warn("channel close : {}", ctx.channel());
     }
 }

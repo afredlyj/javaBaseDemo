@@ -3,6 +3,8 @@ package afred.javademo.dubbo.logfilter.impl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.concurrent.TimeUnit;
+
 import afred.javademo.dubbo.logfilter.HelloService;
 
 /**
@@ -15,6 +17,11 @@ public class TelphoneSayHello implements HelloService {
     @Override
     public String sayHello(String name) {
 
+        try {
+            TimeUnit.SECONDS.sleep(10);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         return "telphone : hello " + name;
     }
 }
