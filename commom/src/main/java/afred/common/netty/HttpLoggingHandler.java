@@ -28,6 +28,8 @@ public class HttpLoggingHandler extends LoggingHandler {
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
 
+        logger.debug("收到请求");
+
         if (startTime <= 0) {
             startTime = System.nanoTime();
         }

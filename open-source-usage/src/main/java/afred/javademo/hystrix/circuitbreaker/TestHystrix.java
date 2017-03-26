@@ -1,11 +1,14 @@
 package afred.javademo.hystrix.circuitbreaker;
 
+import com.netflix.hystrix.strategy.HystrixPlugins;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.concurrent.TimeUnit;
 
 import afred.javademo.hystrix.circuitbreaker.impl.UserInfoImpl;
+import afred.javademo.hystrix.plugins.MyEventNotifier;
 
 /**
  * Created by afred on 16/5/28.
@@ -16,6 +19,9 @@ public class TestHystrix {
 
     @org.junit.Test
     public void circuit() throws InterruptedException {
+
+        HystrixPlugins.getInstance().registerEventNotifier(new MyEventNotifier());
+
 
         UserInfoCommand command = null;
 //        try {

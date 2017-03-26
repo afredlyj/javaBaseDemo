@@ -51,7 +51,7 @@ public class SpringConfigurableHandler {
 
 
     @GET
-    @Path("/test")
+    @Path("/test/{var:\\w}")
     public String hello() {
 
         logger.debug("request : ");

@@ -30,6 +30,6 @@
     <!--<dubbo:provider id="demo" protocol="dubbo" />-->
     <dubbo:protocol name="dubbo"/>
 
-    <dubbo:reference interface="afred.javademo.dubbo.logfilter.HelloService" id="helloService" timeout="1000"/>
+    <dubbo:reference interface="afred.javademo.dubbo.logfilter.HelloService" id="helloService" timeout="1000" scope="remote"/>
 
 </beans>
