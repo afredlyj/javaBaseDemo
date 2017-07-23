@@ -40,7 +40,7 @@ public class Server {
             bootstrap.group(bossGroup, workerGroup)
                     .channel(NioServerSocketChannel.class)
                     .childOption(ChannelOption.TCP_NODELAY, Boolean.TRUE)
-                    .childHandler(new HttpServerInitializer(null, new DispatcherHandler(Executors.newFixedThreadPool(128))));
+                    .childHandler(new HttpServerInitializer(null, new DispatcherHandler(Executors.newFixedThreadPool(2))));
 
             Channel channel = bootstrap.bind(port).sync().channel();
             channel.closeFuture().sync();
