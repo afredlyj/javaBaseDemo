@@ -1,6 +1,7 @@
 package afred.javademo.hystrix.annotation;
 
 
+import com.alibaba.ttl.TransmittableThreadLocal;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 
 import org.slf4j.Logger;
@@ -13,6 +14,9 @@ import afred.javademo.hystrix.circuitbreaker.UserInfoData;
  * Created by afred on 17/7/23.
  */
 public class UserInfoManager {
+
+    public static TransmittableThreadLocal threadLocal = new TransmittableThreadLocal();
+
 
     private static final Logger logger = LoggerFactory.getLogger(UserInfoManager.class);
 
@@ -30,7 +34,9 @@ public class UserInfoManager {
 
     @HystrixCommand
     public UserInfoData get(int userId) {
-        logger.debug("user info : {}", userInfo);
+        logger.debug("user info : {}, {}", userInfo, threadLocal.get());
+        threadLocal.set("child thread");
+        logger.debug("after child set : {}", threadLocal.get());
         UserInfoData user = userInfo.queryUserInfo(userId);
         return user;
     }
