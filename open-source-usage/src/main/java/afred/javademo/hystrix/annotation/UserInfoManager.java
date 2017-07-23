@@ -18,6 +18,8 @@ public class UserInfoManager {
 
     private afred.javademo.hystrix.circuitbreaker.IUserInfo userInfo;
 
+    public static UserInfoData FALLBACK_USER = new UserInfoData();
+
     public IUserInfo getUserInfo() {
         return userInfo;
     }
@@ -26,16 +28,37 @@ public class UserInfoManager {
         this.userInfo = userInfo;
     }
 
-    @HystrixCommand(fallbackMethod = "fallback", groupKey = "userinfo", threadPoolKey = "")
+    @HystrixCommand
     public UserInfoData get(int userId) {
         logger.debug("user info : {}", userInfo);
         UserInfoData user = userInfo.queryUserInfo(userId);
         return user;
     }
 
+    @HystrixCommand(fallbackMethod = "fallback")
+    public UserInfoData getWithFallback(int userId) {
+        logger.debug("user info : {}", userInfo);
+        UserInfoData user = userInfo.queryUserInfo(userId);
+        return user;
+    }
+
+    @HystrixCommand(fallbackMethod = "fallback", ignoreExceptions = RuntimeException.class)
+    public UserInfoData getUnWrappedExeption(int userId) {
+        logger.debug("user info : {}", userInfo);
+        UserInfoData user = userInfo.queryUserInfo(userId);
+        return user;
+    }
+
+//    @HystrixCommand(fallbackMethod = "fallback", ignoreExceptions = RuntimeException.class, raiseHystrixExceptions = {HystrixException.RUNTIME_EXCEPTION})
+//    public UserInfoData getWrappedExeption(int userId) {
+//        logger.debug("user info : {}", userInfo);
+//        UserInfoData user = userInfo.queryUserInfo(userId);
+//        return user;
+//    }
+
     private UserInfoData fallback(int userId) {
         logger.debug("fall back");
-        return new UserInfoData();
+        return FALLBACK_USER;
     }
 
 }
